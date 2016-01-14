@@ -9,18 +9,20 @@ define(['app'], function (app) {
 					'': {
 						templateUrl: 'index/index.html'
 					},
-					'form1@index': {
-						templateUrl: 'index/form1.html',
-						// new attribute for ajax load controller
-						controllerUrl: 'index/form1Ctrl',
-						controller: 'form1Ctrl'
+					'navbar@index': {
+						templateUrl: 'index/navbar/navbar.html',
+						controllerUrl: 'index/navbar/navbarCtrl',
+						controller: 'navbarCtrl'
 					},
-					'form2@index': {
-						templateUrl: 'index/form2.html',
-
-						// new attribute for ajax load controller
-						controllerUrl: 'index/form2Ctrl',
-						controller: 'form2Ctrl'
+					'sidebar@index': {
+						templateUrl: 'index/sidebar/sidebar.html',
+						controllerUrl: 'index/sidebar/sidebarCtrl',
+						controller: 'sidebarCtrl'
+					},
+					'page@index': {
+						templateUrl: 'index/page/page.html',
+						controllerUrl: 'index/page/pageCtrl',
+						controller: 'pageCtrl'
 					}
 				}
 			});

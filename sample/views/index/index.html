@@ -1,5 +1,9 @@
-<div class="container">
-	<div>This is index html</div>
-    <div ui-view="form1"></div>  
-    <div ui-view="form2"></div>  
+ <!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div ui-view="navbar"></div> 
+    <div ui-view="sidebar"></div> 
+</nav>
+<!-- main -->
+<div id="page-wrapper">
+	<div ui-view="main"></div> 
 </div>
