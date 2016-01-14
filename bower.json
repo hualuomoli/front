@@ -1,0 +1,36 @@
+{
+  "name": "front",
+  "description": "front",
+  "main": "index.html",
+  "authors": [
+    "hualuomoli"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "jquery",
+    "bootstrap",
+    "font-awsome",
+    "angular",
+    "requirejs"
+  ],
+  "homepage": "https://github.com/hualuomoli/front",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.6",
+    "font-awesome": "font-awsome#~4.5.0",
+    "angular": "~1.4.8",
+    "requirejs": "~2.1.22",
+    "angular-async-loader": "https://github.com/subchen/angular-async-loader.git#~1.2.1",
+    "angular-ui-router": "~0.2.15",
+    "angular-growl": "~0.4.0"
+  }
+}
