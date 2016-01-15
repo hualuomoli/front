@@ -3,8 +3,9 @@ define(function (require, exports, module) {
 	var asyncLoader = require('angular-async-loader');
 
 	require('angular-ui-router');
+	// jquery bootstrap
 	require('jquery');
-	require('bs3');
+	require('bootstrap');
 
 	var app = angular.module('app', ['ui.router']);
 

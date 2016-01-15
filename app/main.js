@@ -5,7 +5,7 @@ require.config({
         'angular-ui-router': 'assets/angular-ui-router/release/angular-ui-router.min',
         'angular-async-loader': 'assets/angular-async-loader/dist/angular-async-loader.min',
         'jquery': 'assets/jquery/dist/jquery.min',
-        'bs3': 'assets/bootstrap/dist/js/bootstrap.min'
+        'bootstrap': 'assets/bootstrap/dist/js/bootstrap.min'
     },
     shim: {
         'angular': {
@@ -14,7 +14,7 @@ require.config({
         'angular-ui-router': {
             deps: ['angular']
         },
-        'bs3': {
+        'bootstrap': {
             deps: ['jquery']
         }
     }

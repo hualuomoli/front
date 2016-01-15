@@ -4,9 +4,10 @@ var app = express();
 
 // 
 
-app.use('/assets', express.static(path.join(__dirname, 'bower_components')));
-app.use('/', express.static(path.join(__dirname, 'app'))); // application
-// app.use('/', express.static(path.join(__dirname, 'dist'))); // dist
+app.use('/assets', express.static(path.join(__dirname, 'bower_components'))); // assets
+app.use('/static', express.static(path.join(__dirname, 'static'))); // static
+app.use('/', express.static(path.join(__dirname, 'app'))); // angularjs
+app.use('/', express.static(path.join(__dirname, 'views'))); // view
 
 app.set('port', process.env.PORT || '3000');
 

@@ -19,11 +19,6 @@ define(['app'], function (app) {
 						controllerUrl: 'index/sidebar/sidebarCtrl',
 						controller: 'sidebarCtrl'
 					},
-					'main@index': {
-						templateUrl: 'index/main/main.html',
-						controllerUrl: 'index/main/mainCtrl',
-						controller: 'mainCtrl'
-					},
 					'page@index': {
 						templateUrl: 'index/page/page.html',
 						controllerUrl: 'index/page/pageCtrl',
