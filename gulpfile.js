@@ -15,7 +15,7 @@ var gulp = require('gulp'),
 	uglify = require("gulp-uglify"),
 	// css
 	cssnano = require('gulp-cssnano'),
-	sass = require('gulp-sass'),
+	// sass = require('gulp-sass'),
 	autoprefixer = require('gulp-autoprefixer'),
 	cssVersion = require('gulp-make-css-url-version'),
 	// html
@@ -60,7 +60,7 @@ gulp.task('js', function () {
 // sass
 gulp.task('sass', function () {
 	return gulp.src(['static/scss/**/*'], {
-			base: 'static'
+			base: 'static/scss'
 		})
 		// compile sass to css
 		.pipe(sass(config.sass).on('error', sass.logError))
@@ -69,7 +69,7 @@ gulp.task('sass', function () {
 		.pipe(sourcemaps.init())
 		.pipe(cssnano(config.cssnano))
 		.pipe(sourcemaps.write('./'))
-		.pipe(gulp.dest(config.dest));
+		.pipe(gulp.dest(path.join(config.dest, 'static/css')));
 });
 
 // css
@@ -82,7 +82,15 @@ gulp.task('css', function () {
 		.pipe(sourcemaps.init())
 		.pipe(cssnano(config.cssnano))
 		.pipe(sourcemaps.write('./'))
-		.pipe(gulp.dest(config.dest));
+		.pipe(gulp.dest(path.join(config.dest, 'static')));
+});
+
+// image
+gulp.task('image', function () {
+	return gulp.src(['static/img**/*'], {
+			base: 'static'
+		})
+		.pipe(gulp.dest(path.join(config.dest, 'static')));
 });
 
 // html
@@ -94,19 +102,12 @@ gulp.task('html', function () {
 		.pipe(gulp.dest(config.dest));
 });
 
-// image
-gulp.task('image', function () {
-	return gulp.src(['static/img**/*'], {
-			base: 'static'
-		})
-		.pipe(gulp.dest(config.dest));
-});
-
 // build
 gulp.task('build', ['clean'], function (cb) {
 	gulp.start('js');
-	gulp.start('sass');
+	// gulp.start('sass');
 	gulp.start('css');
+	gulp.start('image');
 	gulp.start('html');
 	return cb();
 });
