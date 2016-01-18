@@ -91,14 +91,6 @@ gulp.task('dev', ['clean:dev'], function () {
 ///////////////////////////////   production   /////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 
-// clean pro folder
-gulp.task('clean:pro', function () {
-	return gulp.src(config.pro, {
-			read: false
-		})
-		.pipe(rimraf());
-});
-
 // copy dependency to pro/assets
 gulp.task('assets:copy:pro', function () {
 	return gulp.src(['bower_components/**/*'], {
@@ -120,14 +112,6 @@ gulp.task('copy:pro', ['assets:copy:pro', 'static:copy:pro'], function (cb) {
 	return cb();
 });
 
-// optimize angularjs to pro
-gulp.task('app:minify:pro', function () {
-	return gulp.src(['app/**/*'], {
-			base: 'app'
-		})
-		.pipe(gulp.dest(config.pro));
-});
-
 // minify css to pro
 gulp.task('css:minify:pro', function () {
 	return gulp.src(['views/**/*.css'], {
@@ -144,37 +128,12 @@ gulp.task('html:minify:pro', function () {
 		.pipe(gulp.dest(config.pro));
 });
 
-gulp.task('views:minify:pro', ['css:minify:pro', 'html:minify:pro'], function (cb) {
+gulp.task('minify:pro', ['css:minify:pro', 'html:minify:pro'], function (cb) {
 	return cb();
 });
 
-gulp.task('minify:pro', ['app:minify:pro', 'views:minify:pro'], function (cb) {
-	return cb();
-});
-
-// watch
-gulp.task('watch:pro', ['copy:pro', 'minify:pro'], function (cb) {
-	gulp.watch(['app/**/*'], ['app:minify:pro']); // angularjs
-	gulp.watch(['views/**/*.css'], ['css:minify:pro']); // views/css
-	gulp.watch(['views/**/*.html', 'views/**/*.htm'], ['html:minify:pro']); // views/html
-
-	return cb();
-});
-
-// browserSync
-gulp.task('browser-sync:pro', ['watch:pro'], function () {
-
-	browserSync.init({
-		server: {
-			baseDir: config.pro
-		}
-	});
-
-	return gulp.watch([config.pro + '**/*']).on('change', browserSync.reload);
-});
-
-gulp.task('pro', ['clean:pro'], function () {
-	return gulp.start('browser-sync:pro');
+gulp.task('pro', ['copy:pro'], function () {
+	return gulp.start('minify:pro');
 });
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -182,5 +141,5 @@ gulp.task('pro', ['clean:pro'], function () {
 /////////////////////////////////////////////////////////////////////////////////
 // default is pro
 gulp.task('default', [], function () {
-	gulp.start('pro');
+	gulp.start('dev');
 });
