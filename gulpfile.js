@@ -3,144 +3,184 @@
 //
 var gulp = require('gulp'),
 	path = require('path'),
-	gulpif = require('gulp-if'),
-	ignore = require('gulp-ignore'),
-	// rename
-	rename = require('gulp-rename'),
 	// clean
 	rimraf = require('gulp-rimraf'),
-	// source
-	sourcemaps = require('gulp-sourcemaps'),
-	// js
-	uglify = require("gulp-uglify"),
-	// css
-	cssnano = require('gulp-cssnano'),
-	// sass = require('gulp-sass'),
-	autoprefixer = require('gulp-autoprefixer'),
-	cssVersion = require('gulp-make-css-url-version'),
-	// html
-	htmlmin = require('gulp-htmlmin'),
 	// async reload browser
 	browserSync = require('browser-sync').create();
 
 // config
 var config = {
-	sass: {
-		outputStyle: 'expanded'
-	},
-	autoprefixer: {
-		browsers: ['last 2 versions', 'IE 8'],
-		cascade: false
-	},
-	cssnano: {
-
-	},
-	htmlmin: {
-		collapseWhitespace: true
-	},
-	dest: 'dist'
+	dev: 'temp',
+	pro: 'dist'
 };
 
-// clean app folder
-gulp.task('clean', function () {
-	return gulp.src(config.dest, {
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////   development   /////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// clean dev folder
+gulp.task('clean:dev', function () {
+	return gulp.src(config.dev, {
 			read: false
 		})
 		.pipe(rimraf());
 });
 
-// angular js
-gulp.task('js', function () {
-	return gulp.src(['app/**/*'], {
-			base: 'app'
+// copy dependency to dev/assets
+gulp.task('assets:copy:dev', function () {
+	return gulp.src(['bower_components/**/*'], {
+			base: 'bower_components'
 		})
-		.pipe(gulp.dest(config.dest)); // min
+		.pipe(gulp.dest(path.join(config.dev, 'assets')));
 });
 
-// sass
-gulp.task('sass', function () {
-	return gulp.src(['static/scss/**/*'], {
-			base: 'static/scss'
-		})
-		// compile sass to css
-		.pipe(sass(config.sass).on('error', sass.logError))
-		.pipe(cssVersion())
-		.pipe(autoprefixer(config.autoprefixer))
-		.pipe(sourcemaps.init())
-		.pipe(cssnano(config.cssnano))
-		.pipe(sourcemaps.write('./'))
-		.pipe(gulp.dest(path.join(config.dest, 'static/css')));
-});
-
-// css
-gulp.task('css', function () {
-	return gulp.src(['static/css/**/*'], {
+// copy static file to dev/static
+gulp.task('static:copy:dev', function () {
+	return gulp.src(['static/**/*'], {
 			base: 'static'
 		})
-		.pipe(cssVersion())
-		.pipe(autoprefixer(config.autoprefixer))
-		.pipe(sourcemaps.init())
-		.pipe(cssnano(config.cssnano))
-		.pipe(sourcemaps.write('./'))
-		.pipe(gulp.dest(path.join(config.dest, 'static')));
+		.pipe(gulp.dest(path.join(config.dev, 'static')));
 });
 
-// image
-gulp.task('image', function () {
-	return gulp.src(['static/img**/*'], {
-			base: 'static'
-		})
-		.pipe(gulp.dest(path.join(config.dest, 'static')));
-});
-
-// html
-gulp.task('html', function () {
+// copy css/image/html to dev
+gulp.task('views:copy:dev', function () {
 	return gulp.src(['views/**/*'], {
 			base: 'views'
 		})
-		.pipe(htmlmin(config.htmlmin))
-		.pipe(gulp.dest(config.dest));
+		.pipe(gulp.dest(config.dev));
 });
 
-// build
-gulp.task('build', ['clean'], function (cb) {
-	gulp.start('js');
-	// gulp.start('sass');
-	gulp.start('css');
-	gulp.start('image');
-	gulp.start('html');
+// copy angularjs to dev
+gulp.task('app:copy:dev', function () {
+	return gulp.src(['app/**/*'], {
+			base: 'app'
+		})
+		.pipe(gulp.dest(config.dev));
+});
+
+// copy
+gulp.task('copy:dev', ['assets:copy:dev', 'static:copy:dev', 'views:copy:dev', 'app:copy:dev'], function (cb) {
 	return cb();
 });
 
 // watch
-gulp.task('watch', ['build'], function (cb) {
-	gulp.watch(['app/**/*'], ['js']); // js
-	gulp.watch(['static/scss/**/*'], ['sass']); // cass
-	gulp.watch(['static/css/**/*'], ['css']); // css
-	gulp.watch(['static/img/**/*'], ['image']); // css
-	gulp.watch(['views/**/*'], ['html']); // html
+gulp.task('watch:dev', ['copy:dev'], function (cb) {
+	gulp.watch(['app/**/*'], ['app:copy:dev']); // angularjs
+	gulp.watch(['views/**/*'], ['views:copy:dev']); // views
 
 	return cb();
 });
 
 // browserSync
-gulp.task('browser-sync', function () {
-
-	gulp.src(['bower_components/**/*'], {
-			base: 'bower_components'
-		})
-		.pipe(gulp.dest(path.join(config.dest, 'assets')));
+gulp.task('browser-sync:dev', ['watch:dev'], function () {
 
 	browserSync.init({
 		server: {
-			baseDir: config.dest
+			baseDir: config.dev
 		}
 	});
 
-	return gulp.watch([config.dest + '/**/*']).on('change', browserSync.reload);
+	return gulp.watch([config.dev + '**/*']).on('change', browserSync.reload);
 });
 
-// default
-gulp.task('default', ['watch'], function () {
-	gulp.start('browser-sync');
+gulp.task('dev', ['clean:dev'], function () {
+	return gulp.start('browser-sync:dev');
+});
+
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////   production   /////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// clean pro folder
+gulp.task('clean:pro', function () {
+	return gulp.src(config.pro, {
+			read: false
+		})
+		.pipe(rimraf());
+});
+
+// copy dependency to pro/assets
+gulp.task('assets:copy:pro', function () {
+	return gulp.src(['bower_components/**/*'], {
+			base: 'bower_components'
+		})
+		.pipe(gulp.dest(path.join(config.pro, 'assets')));
+});
+
+// copy static file to pro/static
+gulp.task('static:copy:pro', function () {
+	return gulp.src(['static/**/*'], {
+			base: 'static'
+		})
+		.pipe(gulp.dest(path.join(config.pro, 'static')));
+});
+
+// copy
+gulp.task('copy:pro', ['assets:copy:pro', 'static:copy:pro'], function (cb) {
+	return cb();
+});
+
+// optimize angularjs to pro
+gulp.task('app:minify:pro', function () {
+	return gulp.src(['app/**/*'], {
+			base: 'app'
+		})
+		.pipe(gulp.dest(config.pro));
+});
+
+// minify css to pro
+gulp.task('css:minify:pro', function () {
+	return gulp.src(['views/**/*.css'], {
+			base: 'views'
+		})
+		.pipe(gulp.dest(config.pro));
+});
+
+// minify html to pro
+gulp.task('html:minify:pro', function () {
+	return gulp.src(['views/**/*.html', 'views/**/*.htm'], {
+			base: 'views'
+		})
+		.pipe(gulp.dest(config.pro));
+});
+
+gulp.task('views:minify:pro', ['css:minify:pro', 'html:minify:pro'], function (cb) {
+	return cb();
+});
+
+gulp.task('minify:pro', ['app:minify:pro', 'views:minify:pro'], function (cb) {
+	return cb();
+});
+
+// watch
+gulp.task('watch:pro', ['copy:pro', 'minify:pro'], function (cb) {
+	gulp.watch(['app/**/*'], ['app:minify:pro']); // angularjs
+	gulp.watch(['views/**/*.css'], ['css:minify:pro']); // views/css
+	gulp.watch(['views/**/*.html', 'views/**/*.htm'], ['html:minify:pro']); // views/html
+
+	return cb();
+});
+
+// browserSync
+gulp.task('browser-sync:pro', ['watch:pro'], function () {
+
+	browserSync.init({
+		server: {
+			baseDir: config.pro
+		}
+	});
+
+	return gulp.watch([config.pro + '**/*']).on('change', browserSync.reload);
+});
+
+gulp.task('pro', ['clean:pro'], function () {
+	return gulp.start('browser-sync:pro');
+});
+
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////   default task   ////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+// default is pro
+gulp.task('default', [], function () {
+	gulp.start('pro');
 });
