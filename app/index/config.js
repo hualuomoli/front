@@ -2,27 +2,47 @@ define(['app'], function (app) {
 
 	app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
+		////////////
+		// Index  //
+		////////////
+
 		$stateProvider
 			.state('index', {
 				url: '/index',
 				views: {
+
+					//////////
+					// page //
+					//////////
 					'': {
-						templateUrl: 'index/index.html'
+						templateUrl: 'index/page.html',
+						controllerUrl: 'index/pageCtrl',
+						controller: 'pageCtrl'
 					},
-					'navbar@index': {
-						templateUrl: 'index/navbar/navbar.html',
-						controllerUrl: 'index/navbar/navbarCtrl',
+
+					////////////
+					// header //
+					////////////
+					'header': {
+						templateUrl: 'index/header.html'
+					},
+
+					////////////
+					// navbar //
+					////////////
+					'navbar': {
+						templateUrl: 'index/navbar.html',
+						controllerUrl: 'index/navbarCtrl',
 						controller: 'navbarCtrl'
 					},
-					'sidebar@index': {
-						templateUrl: 'index/sidebar/sidebar.html',
-						controllerUrl: 'index/sidebar/sidebarCtrl',
+
+					/////////////
+					// sidebar //
+					/////////////
+					'sidebar': {
+						templateUrl: 'index/sidebar.html',
+						controllerUrl: 'index/sidebarCtrl',
 						controller: 'sidebarCtrl'
-					},
-					'page@index': {
-						templateUrl: 'index/page/page.html',
-						controllerUrl: 'index/page/pageCtrl',
-						controller: 'pageCtrl'
 					}
 				}
 			});

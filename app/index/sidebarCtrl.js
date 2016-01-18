@@ -1,5 +1,5 @@
 define(function (require) {
-	var app = require('../../app');
+	var app = require('../app');
 
 	app.controller('sidebarCtrl', ['$scope', function ($scope) {
 		var url = '';

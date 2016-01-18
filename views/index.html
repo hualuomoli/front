@@ -3,7 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Admin - Bootstrap Admin Template</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <!-- css -->
     <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
@@ -11,7 +16,16 @@
 
 <body>
     <div id="wrapper">
-        <div ui-view></div>
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div ui-view="header"></div>
+            <div ui-view="navbar"></div>
+            <div ui-view="sidebar"></div>
+        </nav>
+        <!-- main -->
+        <div id="page-wrapper">
+            <div ui-view></div>
+        </div>
     </div>
     <script data-main="main" src="assets/requirejs/require.js"></script>
 </body>
