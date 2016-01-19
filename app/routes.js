@@ -4,12 +4,12 @@ define(function (require) {
 	require('./config');
 
 	app.run(['$state', '$stateParams', '$rootScope', function ($state, $stateParams, $rootScope) {
+		$rootScope.dev = true;
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
 	}]);
 
 	app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/index');
-
+		$urlRouterProvider.otherwise('/home');
 	}]);
 });

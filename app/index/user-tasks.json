@@ -1,0 +1,17 @@
+[{
+	'title': 'Task 1',
+	'content': '40% Complete',
+	'class': 'progress-bar-success'
+}， {
+	'title': 'Task 2',
+	'content': '20% Complete',
+	'class': 'progress-bar-info'
+}， {
+	'title': 'Task 3',
+	'content': '60% Complete',
+	'class': 'progress-bar-warning'
+}， {
+	'title': 'Task 4',
+	'content': '80% Complete',
+	'class': 'progress-bar-danger'
+}]

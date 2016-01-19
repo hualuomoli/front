@@ -5,10 +5,20 @@ define(['app'], function (app) {
         $stateProvider
             .state('home', {
                 url: '/home',
-                templateUrl: 'home/home.html',
-                // new attribute for ajax load controller
-                controllerUrl: 'home/homeCtrl',
-                controller: 'homeCtrl'
+                views: {
+                    '': {
+                        templateUrl: 'home/main.html'
+                    },
+                    'navbar@': {
+                        templateUrl: 'home/navbar.html'
+                    },
+                    'sidebar@': {
+                        templateUrl: 'home/sidebar.html',
+                        controllerUrl: 'home/sidebarCtrl',
+                        controller: 'sidebarCtrl',
+                        dependencies: []
+                    }
+                }
             });
     }]);
 

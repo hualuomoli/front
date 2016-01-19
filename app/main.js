@@ -5,17 +5,21 @@ require.config({
         'angular-ui-router': 'assets/angular-ui-router/release/angular-ui-router.min',
         'angular-async-loader': 'assets/angular-async-loader/dist/angular-async-loader.min',
         'jquery': 'assets/jquery/dist/jquery.min',
-        'bootstrap': 'assets/bootstrap/dist/js/bootstrap.min'
+        'bootstrap': 'assets/bootstrap/dist/js/bootstrap.min',
+        'metisMenu': 'assets/metisMenu/dist/metisMenu.min'
     },
     shim: {
         'angular': {
-            exports: 'angular'
+            'exports': 'angular'
         },
         'angular-ui-router': {
-            deps: ['angular']
+            'deps': ['angular']
         },
         'bootstrap': {
-            deps: ['jquery']
+            'deps': ['jquery']
+        },
+        'metisMenu': {
+            'deps': ['jquery']
         }
     }
 });

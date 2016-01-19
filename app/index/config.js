@@ -7,45 +7,29 @@ define(['app'], function (app) {
 		////////////
 
 		$stateProvider
-			.state('index', {
-				url: '/index',
-				views: {
-
-					//////////
-					// page //
-					//////////
-					'': {
-						templateUrl: 'index/page.html',
-						controllerUrl: 'index/pageCtrl',
-						controller: 'pageCtrl'
-					},
-
-					////////////
-					// header //
-					////////////
-					'header': {
-						templateUrl: 'index/header.html'
-					},
-
-					////////////
-					// navbar //
-					////////////
-					'navbar': {
-						templateUrl: 'index/navbar.html',
-						controllerUrl: 'index/navbarCtrl',
-						controller: 'navbarCtrl'
-					},
-
-					/////////////
-					// sidebar //
-					/////////////
-					'sidebar': {
-						templateUrl: 'index/sidebar.html',
-						controllerUrl: 'index/sidebarCtrl',
-						controller: 'sidebarCtrl'
-					}
-				}
+			.state('pages', {
+				url: '/pages',
+				templateUrl: 'index.html',
+				controllerUrl: 'index/indexCtrl',
+				controller: 'indexCtrl',
+				dependencies: ['index/indexService']
 			});
+
+		// ///////////
+		// // blank //
+		// ///////////
+		// .state('pages.detail', {
+		// 	url: '/{name:.+',
+		// 	views: {
+
+		// 		// So this one is targeting the unnamed view within the parent state's template.
+		// 		'': {
+		// 			templateUrl: function ($stateParams) {
+		// 				return 'demo/' + $stateParams.name + '.html'
+		// 			}
+		// 		}
+		// 	}
+		// });
 
 	}]);
 
