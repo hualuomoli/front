@@ -5,5 +5,6 @@ define(function (require) {
 	require('metisMenu');
 	app.controller('sidebarCtrl', ['$scope', function ($scope) {
 		$('#side-menu').metisMenu();
+
 	}]);
 });
