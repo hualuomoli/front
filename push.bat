@@ -13,6 +13,8 @@ if '%password%' == '' set password=%git_password%
 echo 'message is %message%'
 echo 'passwor is %password%'
 
+pause
+
 :: git 
 git add *
 git commit -m %message%
