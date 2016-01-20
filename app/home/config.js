@@ -7,7 +7,7 @@ define(['app'], function (app) {
                 url: '/home',
                 views: {
                     '': {
-                        templateUrl: 'home/main.html'
+                        templateUrl: 'detail/dashboard.html'
                     },
                     'navbar@': {
                         templateUrl: 'home/navbar.html'
