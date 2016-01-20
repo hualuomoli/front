@@ -4,7 +4,7 @@ define(function (require) {
 	require('./config');
 
 	app.run(['$state', '$stateParams', '$rootScope', function ($state, $stateParams, $rootScope) {
-		$rootScope.dev = true;
+		// $rootScope.dev = true;
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
 	}]);

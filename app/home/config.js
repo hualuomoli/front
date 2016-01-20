@@ -22,10 +22,14 @@ define(['app'], function (app) {
             })
             // home
             .state('detail', {
-                url: '/detail/:name',
+                url: '/detail/{module:.*}/{name:.+}',
                 views: {
                     '': {
                         templateUrl: function ($stateParams) {
+                            var module = $stateParams.module;
+                            if (module) {
+                                return 'detail/' + module + '/' + $stateParams.name + '.html';
+                            }
                             return 'detail/' + $stateParams.name + '.html';
                         }
                     },

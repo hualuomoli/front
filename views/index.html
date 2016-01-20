@@ -28,7 +28,7 @@
     </div>
     <div id="wrapper">
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-default {{dev?'navbar-static-top':'navbar-fixed-top'}}" role="navigation" style="margin-bottom: 0">
             <!-- menu toggle -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -54,7 +54,7 @@
             <!-- ./menu navbar -->
         </nav>
         <!-- page -->
-        <div id="page-wrapper">
+        <div id="page-wrapper" style="{{dev?'':'margin-top:20px;'}}">
             <div ui-view></div>
         </div>
         <!-- ./page -->
