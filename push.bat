@@ -1,16 +1,17 @@
 @echo off
 
 :: commit message
-set /p message=Please Input message
+set /p message=Please Input message:
 echo.
-if '%message%' == '' then
-set message=add
+if '%message%' == '' set message=add
 
 :: password
 set /p password=Please Input Password:
 echo.
-if '%password%' == '' then
-set password=%git_password%
+if '%password%' == '' set password=%git_password%
+
+echo 'message is %message%'
+echo 'passwor is %password%'
 
 :: git 
 git add *
