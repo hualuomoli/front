@@ -24,12 +24,14 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.2.0",
+    "jquery": "~2.1.4",
     "bootstrap": "~3.3.6",
     "angular": "~1.4.8",
     "requirejs": "~2.1.22",
     "angular-async-loader": "https://github.com/subchen/angular-async-loader.git#~1.2.1",
     "angular-ui-router": "~0.2.15",
-    "font-awesome": "font-awsome#~4.5.0"
-  }
+    "font-awesome": "font-awsome#~4.5.0",
+    "metisMenu": "~2.2.0"
+  },
+  "devDependencies": {}
 }
