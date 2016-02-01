@@ -28,8 +28,8 @@ gulp.task('clean:dev', function () {
 
 // copy dependency to dev/assets
 gulp.task('assets:copy:dev', function () {
-	return gulp.src(['bower_components/**/*'], {
-			base: 'bower_components'
+	return gulp.src(['assets/**/*'], {
+			base: 'assets'
 		})
 		.pipe(gulp.dest(path.join(config.dev, 'assets')));
 });
@@ -93,8 +93,8 @@ gulp.task('dev', ['clean:dev'], function () {
 
 // copy dependency to pro/assets
 gulp.task('assets:copy:pro', function () {
-	return gulp.src(['bower_components/**/*'], {
-			base: 'bower_components'
+	return gulp.src(['assets/**/*'], {
+			base: 'assets'
 		})
 		.pipe(gulp.dest(path.join(config.pro, 'assets')));
 });
