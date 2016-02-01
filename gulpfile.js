@@ -10,136 +10,113 @@ var gulp = require('gulp'),
 
 // config
 var config = {
-	dev: 'temp',
-	pro: 'dist'
+	dist: 'dist'
 };
 
-/////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////   development   /////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////  common  //////////////////////
+//////////////////////////////////////////////////////
 
-// clean dev folder
-gulp.task('clean:dev', function () {
-	return gulp.src(config.dev, {
+// clean dist folder
+gulp.task('clean', function () {
+	return gulp.src(config.dist, {
 			read: false
 		})
 		.pipe(rimraf());
 });
 
-// copy dependency to dev/assets
-gulp.task('assets:copy:dev', function () {
+// copy bower dependency
+gulp.task('assets', function () {
 	return gulp.src(['assets/**/*'], {
 			base: 'assets'
 		})
-		.pipe(gulp.dest(path.join(config.dev, 'assets')));
+		.pipe(gulp.dest(path.join(config.dist, 'assets')));
 });
 
-// copy static file to dev/static
-gulp.task('static:copy:dev', function () {
+// copy static folder
+gulp.task('static', function () {
 	return gulp.src(['static/**/*'], {
 			base: 'static'
 		})
-		.pipe(gulp.dest(path.join(config.dev, 'static')));
+		.pipe(gulp.dest(path.join(config.dist, 'static')));
 });
 
-// copy css/image/html to dev
-gulp.task('views:copy:dev', function () {
-	return gulp.src(['views/**/*'], {
-			base: 'views'
-		})
-		.pipe(gulp.dest(config.dev));
-});
-
-// copy angularjs to dev
-gulp.task('app:copy:dev', function () {
-	return gulp.src(['app/**/*'], {
-			base: 'app'
-		})
-		.pipe(gulp.dest(config.dev));
-});
-
-// copy
-gulp.task('copy:dev', ['assets:copy:dev', 'static:copy:dev', 'views:copy:dev', 'app:copy:dev'], function (cb) {
+// common
+gulp.task('common', ['assets', 'static'], function (cb) {
 	return cb();
 });
 
+/////////////////////////////////////////////////////////
+////////////////////// development //////////////////////
+/////////////////////////////////////////////////////////
+
+// copy css/js/html
+gulp.task('views:dev', function () {
+	return gulp.src(['views/**/*'], {
+			base: 'views'
+		})
+		.pipe(gulp.dest(path.join(config.dist, 'views')));
+});
+
+// copy angularjs
+gulp.task('app:dev', function () {
+	return gulp.src(['app/**/*'], {
+			base: 'app'
+		})
+		.pipe(gulp.dest(path.join(config.dist, 'app')));
+});
+
 // watch
-gulp.task('watch:dev', ['copy:dev'], function (cb) {
-	gulp.watch(['app/**/*'], ['app:copy:dev']); // angularjs
-	gulp.watch(['views/**/*'], ['views:copy:dev']); // views
+gulp.task('watch', ['common', 'views:dev', 'app:dev'], function (cb) {
+
+	gulp.watch(['views/**/*'], ['views:dev']); // views
+	gulp.watch(['app/**/*'], ['app:dev']); // angularjs
 
 	return cb();
 });
 
 // browserSync
-gulp.task('browser-sync:dev', ['watch:dev'], function () {
+gulp.task('browser-sync', ['watch'], function () {
 
 	browserSync.init({
+		ui: {
+			port: 3001 // 
+		},
+		https: true,
+		host: "localhost", // 主机地址
+		port: 3000, // 端口
 		server: {
-			baseDir: config.dev
-		}
+			baseDir: [config.dist], // 主目录
+			index: "index.html", // 主页
+			routes: { // 路由
+				"/assets": "assets",
+				"/static": "static",
+				"/app": "app",
+				"/views": "views"
+			},
+			directory: false // 显示目录
+		},
+		startPath: "/views", // 启动路径
+		open: "local", // 默认打开本地
+		browser: ["google chrome"], // 默认打开浏览器
+		reloadDelay: 200, // 延迟加载时间(毫秒)
+		ghostMode: { // ghost模式配置
+			clicks: true,
+			forms: true,
+			scroll: true
+		},
+		logLevel: "debug",
+		logPrefix: "Front"
+
 	});
 
-	return gulp.watch([config.dev + '**/*']).on('change', browserSync.reload);
+	return gulp.watch([config.dist + '/**/*']).on('change', browserSync.reload);
 });
 
-gulp.task('dev', ['clean:dev'], function () {
-	return gulp.start('browser-sync:dev');
-});
-
-/////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////   production   /////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-
-// copy dependency to pro/assets
-gulp.task('assets:copy:pro', function () {
-	return gulp.src(['assets/**/*'], {
-			base: 'assets'
-		})
-		.pipe(gulp.dest(path.join(config.pro, 'assets')));
-});
-
-// copy static file to pro/static
-gulp.task('static:copy:pro', function () {
-	return gulp.src(['static/**/*'], {
-			base: 'static'
-		})
-		.pipe(gulp.dest(path.join(config.pro, 'static')));
-});
-
-// copy
-gulp.task('copy:pro', ['assets:copy:pro', 'static:copy:pro'], function (cb) {
-	return cb();
-});
-
-// minify css to pro
-gulp.task('css:minify:pro', function () {
-	return gulp.src(['views/**/*.css'], {
-			base: 'views'
-		})
-		.pipe(gulp.dest(config.pro));
-});
-
-// minify html to pro
-gulp.task('html:minify:pro', function () {
-	return gulp.src(['views/**/*.html', 'views/**/*.htm'], {
-			base: 'views'
-		})
-		.pipe(gulp.dest(config.pro));
-});
-
-gulp.task('minify:pro', ['css:minify:pro', 'html:minify:pro'], function (cb) {
-	return cb();
-});
-
-gulp.task('pro', ['copy:pro'], function () {
-	return gulp.start('minify:pro');
-});
-
-/////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////   default task   ////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-// default is pro
-gulp.task('default', [], function () {
-	gulp.start('dev');
+////////////////////////////////////////////////////
+////////////////////// tasks  //////////////////////
+////////////////////////////////////////////////////
+// default
+gulp.task('default', ['clean'], function () {
+	return gulp.start('browser-sync');
 });
