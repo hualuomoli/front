@@ -1,7 +1,4 @@
-define(function (require) {
-	var app = require('./app');
-
-	require('./config');
+define(['app', 'config'], function (app) {
 
 	app.run(['$state', '$stateParams', '$rootScope', function ($state, $stateParams, $rootScope) {
 		// $rootScope.dev = true;
