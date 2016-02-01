@@ -13,6 +13,37 @@ var config = {
 	dist: 'dist'
 };
 
+var syncInit = {
+	https: false, // 是否使用https
+	host: "localhost", // 主机地址
+	port: 3000, // 端口
+	server: {
+		directory: false, // 显示目录
+		baseDir: [config.dist], // 主目录
+		index: "index.html", // 主页
+		routes: { // 路由
+			"/assets": "assets",
+			"/static": "static",
+			"/app": "app",
+			"/views": "views"
+		}
+	},
+	startPath: "/views", // 启动路径
+	// browser: ["Chrome", "Microsoft IE"], // 默认打开浏览器
+	// reloadDelay: 200, // 延迟加载时间(毫秒)
+	// ui: { // UI 配置
+	// 	port: 3001 // 
+	// },
+	// ghostMode: { // ghost模式配置
+	// 	clicks: true,
+	// 	forms: true,
+	// 	scroll: true
+	// },
+	// logLevel: "debug",
+	// logPrefix: "Front",
+	open: "external" // 默认打开本地(local/external)
+}
+
 //////////////////////////////////////////////////////
 //////////////////////  common  //////////////////////
 //////////////////////////////////////////////////////
@@ -78,37 +109,7 @@ gulp.task('watch', ['common', 'views:dev', 'app:dev'], function (cb) {
 // browserSync
 gulp.task('browser-sync', ['watch'], function () {
 
-	browserSync.init({
-		ui: {
-			port: 3001 // 
-		},
-		https: true,
-		host: "localhost", // 主机地址
-		port: 3000, // 端口
-		server: {
-			baseDir: [config.dist], // 主目录
-			index: "index.html", // 主页
-			routes: { // 路由
-				"/assets": "assets",
-				"/static": "static",
-				"/app": "app",
-				"/views": "views"
-			},
-			directory: false // 显示目录
-		},
-		startPath: "/views", // 启动路径
-		open: "local", // 默认打开本地
-		browser: ["google chrome"], // 默认打开浏览器
-		reloadDelay: 200, // 延迟加载时间(毫秒)
-		ghostMode: { // ghost模式配置
-			clicks: true,
-			forms: true,
-			scroll: true
-		},
-		logLevel: "debug",
-		logPrefix: "Front"
-
-	});
+	browserSync.init(syncInit);
 
 	return gulp.watch([config.dist + '/**/*']).on('change', browserSync.reload);
 });
