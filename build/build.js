@@ -3,15 +3,17 @@
     baseUrl: './',
     dir: '../dist',
     modules: [{
-        name: 'main'
+        name: 'main',
+        exclude: ['jquery', 'bootstrap', 'angular', 'angular-ui-router', 'angular-async-loader']
     }],
-    removeCombined: false,
+    optimizeCss: 'standard',
+    removeCombined: true,
     paths: {
-        'angular': '../bower_components/angular/angular.min',
-        'angular-ui-router': '../bower_components/angular-ui-router/release/angular-ui-router.min',
-        'angular-async-loader': '../bower_components/angular-async-loader/dist/angular-async-loader.min',
-        'jquery': '../bower_components/jquery/dist/jquery.min',
-        'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap.min'
+        'angular': '../assets/angular/angular.min',
+        'angular-ui-router': '../assets/angular-ui-router/release/angular-ui-router.min',
+        'angular-async-loader': '../assets/angular-async-loader/dist/angular-async-loader.min',
+        'jquery': '../assets/jquery/dist/jquery.min',
+        'bootstrap': '../assets/bootstrap/dist/js/bootstrap.min'
     },
     shim: {
         'angular': {
