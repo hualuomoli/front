@@ -1,8 +1,31 @@
-define(['module', 'angular', 'angular-async-loader', 'angular-ui-router'], function (module, angular, asyncLoader) {
+(function () {
+    'use strict';
 
-	var app = angular.module('app', ['ui.router']);
+    angular.module('app', [
+        /*
+         * Order is not important. Angular makes a
+         * pass to register all of the modules listed
+         * and then when app.dashboard tries to use app.data,
+         * its components are available.
+         */
 
-	asyncLoader.configure(app);
+        /*
+         * Everybody has access to these.
+         * We could place these under every feature area,
+         * but this is easier to maintain.
+         */
+        'app.core',
 
-	module.exports = app;
-});
+        /*
+         * Feature areas
+         */
+        'bz.home',
+        'bz.user'
+    ]);
+
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['app']);
+        angular.element(document).find('html').addClass('ng-app');
+    });
+
+})();
