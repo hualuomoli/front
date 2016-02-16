@@ -1,4 +1,6 @@
-(function () {
+(function (angular) {
+	'use strict';
+
 	angular.module('bz.user')
 		.controller('userCtrl', userCtrl);
 
@@ -13,4 +15,5 @@
 		}, 3000);
 
 	}
-})();
+
+})(angular);

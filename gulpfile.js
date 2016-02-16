@@ -30,10 +30,6 @@ var config = {
 	dist: 'dist'
 };
 
-var syncInit = {
-
-}
-
 ///////////////////////////////////////////////////
 //////////////////////  dev  //////////////////////
 ///////////////////////////////////////////////////
@@ -84,75 +80,25 @@ gulp.task('clean', function () {
 		.pipe(rimraf());
 });
 // js
-// blocks:js
-gulp.task('blocks:js', function () {
-	return gulp.src(['app/blocks/**'])
-		.pipe(concat('blocks.js'))
-		.pipe(gulp.dest(config.dist))
-		.pipe(ngAnnotate())
-		.pipe(uglify())
-		.pipe(rename(function (path) {
-			path.basename += ".min";
-		}))
-		.pipe(gulp.dest(config.dist));
-});
-// app:js
-gulp.task('app:js', function () {
-	return gulp.src(['app/core/core.js', 'app/app.js'])
-		.pipe(concat('app.js'))
-		.pipe(gulp.dest(config.dist))
-		.pipe(ngAnnotate())
-		.pipe(uglify())
-		.pipe(rename(function (path) {
-			path.basename += ".min";
-		}))
-		.pipe(gulp.dest(config.dist));
-});
-// module:js
-gulp.task('module:js', function () {
-	return gulp.src(['app/**/*.module.js'])
-		.pipe(concat('module.js'))
-		.pipe(gulp.dest(config.dist))
-		.pipe(ngAnnotate())
-		.pipe(uglify())
-		.pipe(rename(function (path) {
-			path.basename += ".min";
-		}))
-		.pipe(gulp.dest(config.dist));
-});
-// route:js
-gulp.task('route:js', function () {
-	return gulp.src(['app/**/*.route.js'])
-		.pipe(concat('route.js'))
-		.pipe(gulp.dest(config.dist))
-		.pipe(ngAnnotate())
-		.pipe(uglify())
-		.pipe(rename(function (path) {
-			path.basename += ".min";
-		}))
-		.pipe(gulp.dest(config.dist));
-});
-// main:js
-gulp.task('main:js', function () {
+gulp.task('js', function () {
 	return gulp.src([
-			'app/**/*.service.js',
-			'app/**/*.factory.js',
+			'app/**/*.module.js',
 			'app/**/*.provider.js',
+			'app/**/*.factory.js',
+			'app/**/*.config.js',
+			'app/**/*.service.js',
 			'app/**/*.controller.js',
-			'app/**/*.directive.js'
+			'app/**/*.route.js',
+			'app/app.js'
 		])
 		.pipe(concat('main.js'))
-		.pipe(gulp.dest(config.dist))
 		.pipe(ngAnnotate())
+		.pipe(gulp.dest(config.dist))
 		.pipe(uglify())
 		.pipe(rename(function (path) {
 			path.basename += ".min";
 		}))
-		.pipe(gulp.dest(config.dist));
-});
-// js
-gulp.task('js', ['blocks:js', 'app:js', 'module:js', 'route:js', 'main:js'], function (cb) {
-	return cb();
+		.pipe(gulp.dest(config.dist));;
 });
 
 // css
@@ -206,27 +152,6 @@ gulp.task('pub', ['js', 'css', 'image', 'html', 'index:html'], function (cb) {
 	return cb();
 });
 
-gulp.task('test', ['clean'], function () {
-
-	gulp.start('pub');
-
-	browserSync.init({
-		port: 3000, // 端口
-		server: {
-			routes: { // 路由
-				"/bower_components": "bower_components",
-				"/static": "static",
-				"/dist": "dist"
-			}
-		},
-		startPath: "./dist", // 启动路径
-	});
-
-	gulp.watch('app/**/*');
-
-	return gulp.watch(['dist/**/*']).on('change', browserSync.reload);
-});
-
 // default
 gulp.task('default', ['clean'], function () {
 	return gulp.start('pub');
@@ -263,4 +188,141 @@ gulp.task("requirejs", function () {
 			exclude: ['angular', 'angular-ui-router', 'angular-async-loader', 'bootstrap', 'jquery', 'metisMenu']
 		}))
 		.pipe(gulp.dest(config.dist));
+});
+
+///////////////////////////////////////////////////
+/////////////////// js test ///////////////////////
+///////////////////////////////////////////////////
+// blocks - logger
+gulp.task('logger:js', function () {
+	return gulp.src([
+			'app/blocks/logger/logger.module.js',
+			'app/blocks/logger/logger.factory.js'
+		])
+		.pipe(concat('logger.js'))
+		.pipe(ngAnnotate())
+		.pipe(gulp.dest(config.dist))
+		.pipe(uglify())
+		.pipe(rename(function (path) {
+			path.basename += ".min";
+		}))
+		.pipe(gulp.dest(config.dist));
+});
+// blocks - exception
+gulp.task('exception:js', function () {
+	return gulp.src([
+			'app/blocks/exception/exception.module.js',
+			'app/blocks/exception/exception.provider.js',
+			'app/blocks/exception/exception.config.js'
+		])
+		.pipe(concat('exception.js'))
+		.pipe(ngAnnotate())
+		.pipe(gulp.dest(config.dist))
+		.pipe(uglify())
+		.pipe(rename(function (path) {
+			path.basename += ".min";
+		}))
+		.pipe(gulp.dest(config.dist));
+});
+// blocks - routehelper
+gulp.task('routehelper:js', function () {
+	return gulp.src([
+			'app/blocks/routehelper/routehelper.module.js',
+			'app/blocks/routehelper/routehelper.factory.js'
+		])
+		.pipe(concat('routehelper.js'))
+		.pipe(ngAnnotate())
+		.pipe(gulp.dest(config.dist))
+		.pipe(uglify())
+		.pipe(rename(function (path) {
+			path.basename += ".min";
+		}))
+		.pipe(gulp.dest(config.dist));
+});
+// core
+gulp.task('core:js', function () {
+	return gulp.src([
+			'app/core/core.module.js',
+			'app/core/core.config.js'
+		])
+		.pipe(concat('core.js'))
+		.pipe(ngAnnotate())
+		.pipe(gulp.dest(config.dist))
+		.pipe(uglify())
+		.pipe(rename(function (path) {
+			path.basename += ".min";
+		}))
+		.pipe(gulp.dest(config.dist));
+});
+// blocks/*,core/*,app.js
+gulp.task('app:js', function () {
+	return gulp.src([
+			// logger
+			'app/blocks/logger/logger.module.js',
+			'app/blocks/logger/logger.factory.js',
+			// exception
+			'app/blocks/exception/exception.module.js',
+			'app/blocks/exception/exception.provider.js',
+			'app/blocks/exception/exception.config.js',
+			// routehelper
+			'app/blocks/routehelper/routehelper.module.js',
+			'app/blocks/routehelper/routehelper.factory.js',
+			// core
+			'app/core/core.module.js',
+			'app/core/core.config.js',
+			// app
+			'app/app.js'
+		])
+		.pipe(concat('app.js'))
+		.pipe(ngAnnotate())
+		.pipe(gulp.dest(config.dist))
+		.pipe(uglify())
+		.pipe(rename(function (path) {
+			path.basename += ".min";
+		}))
+		.pipe(gulp.dest(config.dist));
+});
+
+// module, route
+gulp.task('bz:mr:js', function () {
+	return gulp.src([
+			'!app/blocks/**/*.js',
+			'!app/core/**/*.js',
+			'!app/app.js',
+
+			'app/**/*.module.js',
+			'app/**/*.route.js'
+		])
+		.pipe(concat('bz-mr.js'))
+		.pipe(ngAnnotate())
+		.pipe(gulp.dest(config.dist))
+		.pipe(uglify())
+		.pipe(rename(function (path) {
+			path.basename += ".min";
+		}))
+		.pipe(gulp.dest(config.dist));;
+});
+// business
+gulp.task('bz:js', function () {
+	return gulp.src([
+			'!app/blocks/**/*.js',
+			'!app/core/**/*.js',
+			'!app/app.js',
+
+			'app/**/*.module.js',
+			'app/**/*.provider.js',
+			'app/**/*.factory.js',
+			'app/**/*.service.js',
+			'app/**/*.config.js',
+			'app/**/*.controller.js',
+			'app/**/*.route.js',
+		])
+		.pipe(concat('bz.js'))
+		.pipe(ngAnnotate())
+		.pipe(gulp.dest(config.dist))
+		.pipe(uglify())
+		.pipe(rename(function (path) {
+			path.basename += ".min";
+		}))
+		.pipe(gulp.dest(config.dist));;
 });

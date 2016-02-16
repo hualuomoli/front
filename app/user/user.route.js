@@ -1,22 +1,17 @@
-(function () {
+(function (angular) {
+	'use strict';
+
 	angular.module('bz.user')
-		.run(appRun);
+		.config(config);
 
 	/* @ngInject */
-	function appRun(routehelper) {
-		routehelper.configureRoutes(getRoutes());
+	function config($stateProvider) {
+		$stateProvider.state('user', {
+			url: '/user',
+			templateUrl: 'user/user.html',
+			controller: 'userCtrl',
+			controllerAs: 'vm'
+		});
 	}
 
-	function getRoutes() {
-		return [{
-			state: 'user',
-			config: {
-				url: '/user',
-				templateUrl: 'user/user.html',
-				controller: 'userCtrl',
-				controllerAs: 'vm'
-			}
-		}];
-	}
-
-})();
+})(angular);

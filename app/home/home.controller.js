@@ -1,4 +1,4 @@
-(function () {
+(function (angular) {
 	'use strict';
 
 	angular.module('bz.home')
@@ -15,4 +15,4 @@
 		}, 2000);
 
 	}
-})();
+})(angular);

@@ -1,26 +1,12 @@
-(function () {
+(function (angular) {
     'use strict';
 
-    angular.module('blocks.exception', ['blocks.logger'])
-        .provider('exceptionHandler', exceptionHandlerProvider)
+    angular.module('blocks.exception')
         .config(config);
 
     /* @ngInject */
-    function exceptionHandlerProvider() {
-        /* jshint validthis:true */
-        this.config = {
-            appErrorPrefix: ''
-        };
-
-        this.$get = function () {
-            return {
-                config: this.config
-            };
-        };
-    }
-
-    /* @ngInject */
     function config($provide) {
+        // add prefix to log message
         $provide.decorator('$exceptionHandler', extendExceptionHandler);
     }
 
@@ -40,4 +26,4 @@
         };
     }
 
-})();
+})(angular);

@@ -1,7 +1,7 @@
-(function () {
+(function (angular) {
     'use strict';
 
-    angular.module('blocks.logger', [])
+    angular.module('blocks.logger')
         .factory('logger', logger);
 
     // logger.$inject = ['$log'];
@@ -36,4 +36,4 @@
             $log.warn('Warning: ' + message, data);
         }
     }
-}());
+})(angular);

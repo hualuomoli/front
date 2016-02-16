@@ -1,4 +1,6 @@
-(function () {
+(function (angular) {
+	'use strict';
+
 	angular.module('bz.user')
 		.service('userService', userService);
 
@@ -20,4 +22,4 @@
 
 	}
 
-})();
+})(angular);

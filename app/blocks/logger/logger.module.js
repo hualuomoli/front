@@ -1,6 +1,7 @@
 (function (angular) {
 	'use strict';
 
-	angular.module('bz.user', []);
+	// log
+	angular.module('blocks.logger', []);
 
 })(angular);
