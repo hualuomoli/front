@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Demo</title>
+</head>
+<body>
+	<div data-ui-view></div>
+</body>
+<script src="../bower_components/angular/angular.min.js"></script>
+<script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+<!-- app -->
+<script src="app.js"></script>
+<script src="core/core.module.js"></script>
+<script src="core/core.config.js"></script>
+
+<!-- blocks -->
+<script src="blocks/logger/logger.module.js"></script>
+<script src="blocks/logger/logger.factory.js"></script>
+<script src="blocks/exception/exception.module.js"></script>
+<script src="blocks/exception/exception.provider.js"></script>
+<script src="blocks/exception/exception.config.js"></script>
+<script src="blocks/routehelper/routehelper.module.js"></script>
+<script src="blocks/routehelper/routehelper.factory.js"></script>
+
+
+<!-- home -->
+<script src="home/home.module.js"></script>
+<script src="home/home.controller.js"></script>
+<script src="home/home.route.js"></script>
+<!-- user -->
+<script src="user/user.module.js"></script>
+<script src="user/user.controller.js"></script>
+<script src="user/user.route.js"></script>
+<script src="user/user.service.js"></script>
+</html>
