@@ -49,23 +49,33 @@
         }
 
         function init() {
-            handleRoutingErrors();
-            handleRoutingSuccesses();
+            handleStateErrors();
+            handleStateSuccesses();
+            handleStateNotFound();
         }
 
-        function handleRoutingErrors() {
-            $rootScope.$on('$routeChangeError',
-                function (event, current, previous, rejection) {
-                    logger.warning('change route error.', [previous.$$route, current.$$route]);
+        function handleStateErrors() {
+            $rootScope.$on('$stateChangeError',
+                function (event, toState, toParams, fromState, fromParams) {
+                    logger.error('change state error.', [fromState, toState]);
                     $location.path(routePath);
                 }
             );
         }
 
-        function handleRoutingSuccesses() {
-            $rootScope.$on('$routeChangeSuccess',
-                function (event, current, previous) {
-                    logger.success('change route success.', current.$$route);
+        function handleStateSuccesses() {
+            $rootScope.$on('$stateChangeSuccess',
+                function (event, toState, toParams, fromState, fromParams) {
+                    logger.success('change state success.', toState);
+                }
+            );
+        }
+
+        function handleStateNotFound() {
+            $rootScope.$on('$stateNotFound',
+                function (event, toState, fromState, fromParams) {
+                    logger.warning('state not found. state = ', toState.to);
+                    logger.warning('state not found. params = ', toState.toParams);
                 }
             );
         }
