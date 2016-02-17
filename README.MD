@@ -7,12 +7,13 @@
 
 # 目录结构
 
-> + app.js                 应用主入口
-> + blocks                 通用模块
->     * logger                  日志模块
->     * exception               异常处理模块
->     * routehelper             路由辅助模块
-> + core                   核心模块
+> + app.js                  应用主入口
+> + core                    核心模块
+> + blocks                  通用模块
+>     * logger                   日志模块
+>     * exception                异常处理模块
+>     * routehelper              路由辅助模块
+
 
 
 # 如何使用
