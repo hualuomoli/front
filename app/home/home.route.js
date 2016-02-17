@@ -9,10 +9,8 @@
 		$stateProvider.state('home', {
 			url: '/home',
 			templateUrl: 'home/home.html',
-			controller: 'homeCtrl',
-			controllerAs: 'vm'
+			// abstract: true
 		});
-
 	}
 
 })(angular);

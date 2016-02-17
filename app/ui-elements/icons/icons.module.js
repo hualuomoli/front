@@ -1,6 +1,6 @@
 (function (angular) {
 	'use strict';
 
-	angular.module('bz.user', []);
+	angular.module('bz.icons', []);
 
 })(angular);

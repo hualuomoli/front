@@ -1,15 +1,22 @@
 (function (angular) {
-    'use strict';
+	'use strict';
 
-    angular.module('app.core')
-        .config(config);
+	angular.module('app.core')
+		.run(appRun)
+		.config(config);
 
-    /* @ngInject */
-    function config($stateProvider, $urlRouterProvider, exceptionHandlerProvider) {
+	/* @ngInject */
+	function config($stateProvider, $urlRouterProvider, exceptionHandlerProvider) {
 
-        $urlRouterProvider.otherwise('/home');
+		$urlRouterProvider.otherwise('/home/dashboard');
 
-        // Configure the common exception handler
-        exceptionHandlerProvider.config.appErrorPrefix = '[App Error] ';
-    }
+		// Configure the common exception handler
+		exceptionHandlerProvider.config.appErrorPrefix = '[App Error] ';
+	}
+
+	/* @ngInject */
+	function appRun(routehelper){
+		routehelper.init();
+	}
+
 })(angular);

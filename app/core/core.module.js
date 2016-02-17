@@ -3,6 +3,7 @@
 
     angular.module('app.core', [
         'ui.router',
-        'blocks.exception'
+        'blocks.exception',
+        'blocks.routehelper'
     ]);
 })();

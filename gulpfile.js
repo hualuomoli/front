@@ -88,6 +88,7 @@ gulp.task('js', function () {
 			'app/**/*.config.js',
 			'app/**/*.service.js',
 			'app/**/*.controller.js',
+			'app/**/*.directive.js',
 			'app/**/*.route.js',
 			'app/app.js'
 		])
@@ -269,6 +270,7 @@ gulp.task('app:js', function () {
 			'app/blocks/routehelper/routehelper.factory.js',
 			// core
 			'app/core/core.module.js',
+			'app/core/core.directive.js',
 			'app/core/core.config.js',
 			// app
 			'app/app.js'
@@ -283,17 +285,34 @@ gulp.task('app:js', function () {
 		.pipe(gulp.dest(config.dist));
 });
 
-// module, route
-gulp.task('bz:mr:js', function () {
+// module
+gulp.task('bz:module:js', function () {
 	return gulp.src([
 			'!app/blocks/**/*.js',
 			'!app/core/**/*.js',
 			'!app/app.js',
 
-			'app/**/*.module.js',
+			'app/**/*.module.js'
+		])
+		.pipe(concat('bz-module.js'))
+		.pipe(ngAnnotate())
+		.pipe(gulp.dest(config.dist))
+		.pipe(uglify())
+		.pipe(rename(function (path) {
+			path.basename += ".min";
+		}))
+		.pipe(gulp.dest(config.dist));;
+});
+// route
+gulp.task('bz:route:js', function () {
+	return gulp.src([
+			'!app/blocks/**/*.js',
+			'!app/core/**/*.js',
+			'!app/app.js',
+
 			'app/**/*.route.js'
 		])
-		.pipe(concat('bz-mr.js'))
+		.pipe(concat('bz-route.js'))
 		.pipe(ngAnnotate())
 		.pipe(gulp.dest(config.dist))
 		.pipe(uglify())
@@ -309,13 +328,16 @@ gulp.task('bz:js', function () {
 			'!app/core/**/*.js',
 			'!app/app.js',
 
-			'app/**/*.module.js',
+			'!app/**/*.module.js',
+			'!app/**/*.route.js',
+
 			'app/**/*.provider.js',
 			'app/**/*.factory.js',
 			'app/**/*.service.js',
 			'app/**/*.config.js',
 			'app/**/*.controller.js',
-			'app/**/*.route.js',
+			'app/**/*.directive.js'
+			
 		])
 		.pipe(concat('bz.js'))
 		.pipe(ngAnnotate())
@@ -325,4 +347,11 @@ gulp.task('bz:js', function () {
 			path.basename += ".min";
 		}))
 		.pipe(gulp.dest(config.dist));;
+});
+
+gulp.task('test:js',['clean'],function(){
+	gulp.start('app:js');
+	gulp.start('bz:module:js');
+	gulp.start('bz:route:js');
+	gulp.start('bz:js');
 });
