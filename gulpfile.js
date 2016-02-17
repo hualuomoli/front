@@ -356,6 +356,6 @@ gulp.task('pub', ['clean'], function () {
 ////////////////////  default  ////////////////////
 ///////////////////////////////////////////////////
 // default
-gulp.task('default', ['clean'], function () {
-	return gulp.start('pub');
+gulp.task('default',  function () {
+	return gulp.start('dev');
 });
