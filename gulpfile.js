@@ -28,6 +28,7 @@ var gulp = require('gulp'),
 
 // config
 var config = {
+	dev: 'dev',
 	test: 'test',
 	dist: 'dist'
 };
@@ -35,7 +36,54 @@ var config = {
 ///////////////////////////////////////////////////
 //////////////////////  dev  //////////////////////
 ///////////////////////////////////////////////////
-gulp.task('dev', function () {
+// clean 
+gulp.task('clean:dev', function () {
+	return gulp.src(config.dev, {
+			read: false
+		})
+		.pipe(rimraf());
+});
+// js:dev
+gulp.task('js:dev', function (cb) {
+	return gulp.src([
+			'app/**/*.js'
+
+		])
+		.pipe(gulp.dest(config.dev))
+});
+// css:dev
+gulp.task('css:dev', function () {
+	return gulp.src("app/**/*.css", {
+			base: 'app'
+		})
+		.pipe(sourcemaps.init())
+		.pipe(autoprefixer({
+			browsers: ['last 2 versions'],
+			cascade: false
+		}))
+		.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest(config.dev));
+});
+// image:dev
+gulp.task('image:dev', function () {
+	return gulp.src(["app/**/*.jpg"], {
+			base: 'app'
+		})
+		.pipe(gulp.dest(config.dev));
+});
+// html:dev
+gulp.task('html:dev', function () {
+	return gulp.src(['app/**/*.html'], {
+			base: 'app'
+		})
+		.pipe(gulp.dest(config.dev));
+});
+gulp.task('dev', ['clean:dev'], function () {
+
+	gulp.start('js:dev');
+	gulp.start('css:dev');
+	gulp.start('image:dev');
+	gulp.start('html:dev');
 
 	browserSync.init({
 		https: false, // 是否使用https
@@ -48,11 +96,10 @@ gulp.task('dev', function () {
 			routes: { // 路由
 				"/bower_components": "bower_components",
 				"/static": "static",
-				"/app": "app"
 			}
 		},
-		startPath: "./app/", // 启动路径
-		// browser: ["Chrome", "Microsoft IE"], // 默认打开浏览器
+		startPath: "./" + config.dev + "/", // 启动路径
+		// browser: ["google chrome"], // 默认打开浏览器
 		// reloadDelay: 200, // 延迟加载时间(毫秒)
 		// ui: { // UI 配置
 		// 	port: 3001 // 
@@ -64,10 +111,16 @@ gulp.task('dev', function () {
 		// },
 		// logLevel: "debug",
 		// logPrefix: "Front",
-		open: "local" // 默认打开本地(local/external)
+		open: "external" // 默认打开本地(local/external)
 	});
 
-	return gulp.watch(['app/**/*', 'index.html']).on('change', browserSync.reload);
+	gulp.watch(['app/**/*.js'], 'js:dev');
+	gulp.watch(['app/**/*.css'], 'css:dev');
+	gulp.watch(['app/**/*.jpg'], 'image:dev');
+	gulp.watch(['app/**/*.html'], 'html:dev');
+
+
+	return gulp.watch([config.dev + '/**/*']).on('change', browserSync.reload);
 });
 
 ///////////////////////////////////////////////////
@@ -356,6 +409,6 @@ gulp.task('pub', ['clean'], function () {
 ////////////////////  default  ////////////////////
 ///////////////////////////////////////////////////
 // default
-gulp.task('default',  function () {
+gulp.task('default', function () {
 	return gulp.start('dev');
 });

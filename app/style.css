@@ -485,7 +485,6 @@ table.dataTable thead .sorting:after {
     padding: 20px;
     border: 1px solid #d4d4d4;
     border-radius: 2px;
-    -webkit-box-shadow: 0 1px 6px rgba(0,0,0,0.175);
     box-shadow: 0 1px 6px rgba(0,0,0,0.175);
 }
 
@@ -588,7 +587,6 @@ table.dataTable thead .sorting:after {
 
     ul.timeline > li > .timeline-panel {
         width: calc(100% - 90px);
-        width: -moz-calc(100% - 90px);
         width: -webkit-calc(100% - 90px);
     }
 
@@ -615,4 +613,8 @@ table.dataTable thead .sorting:after {
         border-right-width: 14px;
         border-left-width: 0;
     }
+}
+
+.test{
+    display: flex;
 }
