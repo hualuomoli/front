@@ -1,27 +1,27 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.home.header.notification')
-		.controller('headerNotificationController', notificationController);
+  angular.module('bz.home.header.notification')
+    .controller('headerNotificationController', notificationController);
 
-	/* @ngInject */
-	function notificationController($timeout, headerNotificationService, logger) {
-		/* jshint validthis:true */
-		var notification = this;
+  /* @ngInject */
+  function notificationController($timeout, headerNotificationService, logger) {
+    /* jshint validthis:true */
+    var notification = this;
 
-		notification.alerts = {};
-		notification.messages = {};
-		notification.tasks = {};
+    notification.alerts = {};
+    notification.messages = {};
+    notification.tasks = {};
 
-		$timeout(function () {
-			notification.alerts = headerNotificationService.getAlerts();
-			notification.tasks = headerNotificationService.getTasks();
-			notification.messages = headerNotificationService.getMessage();
+    $timeout(function () {
+      notification.alerts = headerNotificationService.getAlerts();
+      notification.tasks = headerNotificationService.getTasks();
+      notification.messages = headerNotificationService.getMessage();
 
-			logger.log('load notification data');
+      logger.log('load notification data');
 
-		}, 1000);
+    }, 1000);
 
-	}
+  }
 
-})(angular);
+})(window.angular);

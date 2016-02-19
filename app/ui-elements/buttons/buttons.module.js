@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.buttons', []);
+  angular.module('bz.buttons', []);
 
-})(angular);
+})(window.angular);

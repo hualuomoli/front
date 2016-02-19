@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.chart', []);
+  angular.module('bz.chart', []);
 
-})(angular);
+})(window.angular);

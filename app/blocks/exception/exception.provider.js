@@ -1,20 +1,20 @@
 (function (angular) {
-    'use strict';
+  'use strict';
 
-    angular.module('blocks.exception')
-        .provider('exceptionHandler', exceptionHandlerProvider);
+  angular.module('blocks.exception')
+    .provider('exceptionHandler', exceptionHandlerProvider);
 
-    function exceptionHandlerProvider() {
-        /* jshint validthis:true */
-        this.config = {
-            appErrorPrefix: '' // error log's prefix
-        };
+  function exceptionHandlerProvider() {
+    /* jshint validthis:true */
+    this.config = {
+      appErrorPrefix: '' // error log's prefix
+    };
 
-        this.$get = function () {
-            return {
-                config: this.config
-            };
-        };
-    }
+    this.$get = function () {
+      return {
+        config: this.config
+      };
+    };
+  }
 
-})(angular);
+})(window.angular);

@@ -1,17 +1,17 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.dashboard')
-		.config(config);
+  angular.module('bz.dashboard')
+    .config(config);
 
-	/* @ngInject */
-	function config($stateProvider) {
-		$stateProvider.state('home.dashboard', {
-			url: '/dashboard',
-			templateUrl: 'dashboard/dashboard.html',
-			controller: 'dashboardController',
-			controllerAs: 'dashboard'
-		});
-	}
+  /* @ngInject */
+  function config($stateProvider) {
+    $stateProvider.state('home.dashboard', {
+      url: '/dashboard',
+      templateUrl: 'dashboard/dashboard.html',
+      controller: 'dashboardController',
+      controllerAs: 'dashboard'
+    });
+  }
 
-})(angular);
+})(window.angular);

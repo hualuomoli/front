@@ -1,15 +1,15 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.dashboard.chat')
-		.directive('bzDashboardChat', chat);
+  angular.module('bz.dashboard.chat')
+    .directive('bzDashboardChat', chat);
 
-	function chat() {
-		return {
-			templateUrl: 'dashboard/chat/chat.html',
-			restrict: 'AE',
-			replace: true,
-		}
-	}
+  function chat() {
+    return {
+      templateUrl: 'dashboard/chat/chat.html',
+      restrict: 'AE',
+      replace: true,
+    };
+  }
 
-})(angular);
+})(window.angular);

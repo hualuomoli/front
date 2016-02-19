@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.grid', []);
+  angular.module('bz.grid', []);
 
-})(angular);
+})(window.angular);

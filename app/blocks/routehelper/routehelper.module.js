@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('blocks.routehelper', ['blocks.logger']);
+  angular.module('blocks.routehelper', ['blocks.logger']);
 
-})(angular);
+})(window.angular);

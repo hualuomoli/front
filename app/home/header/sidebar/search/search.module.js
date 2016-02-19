@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.home.header.sidebar.search', []);
+  angular.module('bz.home.header.sidebar.search', []);
 
-})(angular);
+})(window.angular);

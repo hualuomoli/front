@@ -1,19 +1,19 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.grid')
-		.controller('gridController', gridController);
+  angular.module('bz.grid')
+    .controller('gridController', gridController);
 
-	/* @ngInject */
-	function gridController($scope, $timeout) {
-		/* jshint validthis:true */
-		var grid = this;
-		grid.header = '';
+  /* @ngInject */
+  function gridController($scope, $timeout) {
+    /* jshint validthis:true */
+    var grid = this;
+    grid.header = '';
 
-		$timeout(function () {
-			grid.header = 'Grid';
-		}, 1000);
+    $timeout(function () {
+      grid.header = 'Grid';
+    }, 1000);
 
-	}
+  }
 
-})(angular);
+})(window.angular);

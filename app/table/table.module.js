@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.table', []);
+  angular.module('bz.table', []);
 
-})(angular);
+})(window.angular);

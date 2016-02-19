@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.panels-wells', []);
+  angular.module('bz.panels-wells', []);
 
-})(angular);
+})(window.angular);

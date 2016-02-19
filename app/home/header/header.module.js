@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.home.header', []);
+  angular.module('bz.home.header', []);
 
-})(angular);
+})(window.angular);

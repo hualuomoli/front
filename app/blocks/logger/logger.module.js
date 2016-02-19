@@ -1,7 +1,7 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	// log
-	angular.module('blocks.logger', []);
+  // log
+  angular.module('blocks.logger', []);
 
-})(angular);
+})(window.angular);

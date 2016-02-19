@@ -1,17 +1,17 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.table')
-		.config(config);
+  angular.module('bz.table')
+    .config(config);
 
-	/* @ngInject */
-	function config($stateProvider) {
-		$stateProvider.state('home.table', {
-			url: '/table',
-			templateUrl: 'table/table.html',
-			controller: 'tableController',
-			controllerAs: 'table'
-		});
-	}
+  /* @ngInject */
+  function config($stateProvider) {
+    $stateProvider.state('home.table', {
+      url: '/table',
+      templateUrl: 'table/table.html',
+      controller: 'tableController',
+      controllerAs: 'table'
+    });
+  }
 
-})(angular);
+})(window.angular);

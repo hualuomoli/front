@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.dashboard.chat', []);
+  angular.module('bz.dashboard.chat', []);
 
-})(angular);
+})(window.angular);

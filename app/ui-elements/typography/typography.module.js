@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.typography', []);
+  angular.module('bz.typography', []);
 
-})(angular);
+})(window.angular);

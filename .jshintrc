@@ -1,0 +1,16 @@
+{
+  "predef": [
+    "module",
+    "require",
+    "__dirname",
+    "process",
+    "console",
+    "it",
+    "describe",
+    "before",
+    "after"
+  ],
+  "strict": false,
+  "undef": true,
+  "unused": false
+}

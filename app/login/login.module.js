@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.login', []);
+  angular.module('bz.login', []);
 
-})(angular);
+})(window.angular);

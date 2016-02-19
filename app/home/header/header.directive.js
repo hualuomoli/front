@@ -1,15 +1,15 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.home.header')
-		.directive('bzHeader', header);
+  angular.module('bz.home.header')
+    .directive('bzHeader', header);
 
-	function header() {
-		return {
-			templateUrl: 'home/header/header.html',
-			restrict: 'AE',
-			replace: true
-		}
-	}
+  function header() {
+    return {
+      templateUrl: 'home/header/header.html',
+      restrict: 'AE',
+      replace: true
+    };
+  }
 
-})(angular);
+})(window.angular);

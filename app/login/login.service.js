@@ -1,25 +1,25 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.login')
-		.service('loginService', loginService);
+  angular.module('bz.login')
+    .service('loginService', loginService);
 
-	/* @ngInject */
-	function loginService($http) {
-		return {
-			login: login
-		}
+  /* @ngInject */
+  function loginService() {
+    return {
+      login: login
+    };
 
-		//
-		function login(username, password) {
-			if (!username || !password) {
-				return false;
-			}
-			if (username === 'admin' && password === 'admin') {
-				return true;
-			}
-			return false;
-		}
-	}
+    //
+    function login(username, password) {
+      if (!username || !password) {
+        return false;
+      }
+      if (username === 'admin' && password === 'admin') {
+        return true;
+      }
+      return false;
+    }
+  }
 
-})(angular);
+})(window.angular);

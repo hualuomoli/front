@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.dashboard.timeline', []);
+  angular.module('bz.dashboard.timeline', []);
 
-})(angular);
+})(window.angular);

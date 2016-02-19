@@ -1,6 +1,6 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.notifications', []);
+  angular.module('bz.notifications', []);
 
-})(angular);
+})(window.angular);

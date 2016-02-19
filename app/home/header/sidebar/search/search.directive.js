@@ -1,15 +1,15 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.home.header.sidebar.search')
-		.directive('bzHeaderSidebarSearch', search);
+  angular.module('bz.home.header.sidebar.search')
+    .directive('bzHeaderSidebarSearch', search);
 
-	function search() {
-		return {
-			templateUrl: 'home/header/sidebar/search/search.html',
-			scope: {},
-			restrict: 'E',
-			replace: true,
-		}
-	}
-})(angular);
+  function search() {
+    return {
+      templateUrl: 'home/header/sidebar/search/search.html',
+      scope: {},
+      restrict: 'E',
+      replace: true,
+    };
+  }
+})(window.angular);

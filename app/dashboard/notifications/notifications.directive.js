@@ -1,15 +1,15 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.dashboard.notifications')
-		.directive('bzDashboardNotifications', notifications);
+  angular.module('bz.dashboard.notifications')
+    .directive('bzDashboardNotifications', notifications);
 
-	function notifications() {
-		return {
-			templateUrl: 'dashboard/notifications/notifications.html',
-			restrict: 'AE',
-			replace: true,
-		}
-	}
+  function notifications() {
+    return {
+      templateUrl: 'dashboard/notifications/notifications.html',
+      restrict: 'AE',
+      replace: true,
+    };
+  }
 
-})(angular);
+})(window.angular);

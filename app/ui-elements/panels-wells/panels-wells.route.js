@@ -1,17 +1,17 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.panels-wells')
-		.config(config);
+  angular.module('bz.panels-wells')
+    .config(config);
 
-	/* @ngInject */
-	function config($stateProvider) {
-		$stateProvider.state('home.panelsWells', {
-			url: '/panels-wells',
-			templateUrl: 'ui-elements/panels-wells/panels-wells.html',
-			controller: 'panelsWellsController',
-			controllerAs: 'panelsWells'
-		});
-	}
+  /* @ngInject */
+  function config($stateProvider) {
+    $stateProvider.state('home.panelsWells', {
+      url: '/panels-wells',
+      templateUrl: 'ui-elements/panels-wells/panels-wells.html',
+      controller: 'panelsWellsController',
+      controllerAs: 'panelsWells'
+    });
+  }
 
-})(angular);
+})(window.angular);

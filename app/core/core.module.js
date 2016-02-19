@@ -1,9 +1,10 @@
-(function () {
-    'use strict';
+(function (angular) {
+  'use strict';
 
-    angular.module('app.core', [
-        'ui.router',
-        'blocks.exception',
-        'blocks.routehelper'
-    ]);
-})();
+  angular.module('app.core', [
+    'ui.router',
+    'blocks.exception',
+    'blocks.routehelper'
+  ]);
+
+})(window.angular);

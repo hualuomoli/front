@@ -1,19 +1,19 @@
 (function (angular) {
-	'use strict';
+  'use strict';
 
-	angular.module('bz.form')
-		.controller('formController', formController);
+  angular.module('bz.form')
+    .controller('formController', formController);
 
-	/* @ngInject */
-	function formController($scope, $timeout) {
-		/* jshint validthis:true */
-		var form = this;
-		form.header = '';
+  /* @ngInject */
+  function formController($scope, $timeout) {
+    /* jshint validthis:true */
+    var form = this;
+    form.header = '';
 
-		$timeout(function () {
-			form.header = 'Forms';
-		}, 1000);
+    $timeout(function () {
+      form.header = 'Forms';
+    }, 1000);
 
-	}
+  }
 
-})(angular);
+})(window.angular);
