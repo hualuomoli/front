@@ -45,8 +45,7 @@ gulp.task('clean:dev', function () {
 // js:dev
 gulp.task('js:dev', function () {
   return gulp.src([
-      'app/**/*.js',
-      'test/**/*.js'
+      'app/**/*.js'
     ])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
@@ -154,6 +153,8 @@ gulp.task('app:js', function () {
       // app
       'app/app.js'
     ])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
     .pipe(concat('app.js'))
     .pipe(ngAnnotate())
     .pipe(gulp.dest(config.test))
@@ -174,6 +175,8 @@ gulp.task('bz:module:js', function () {
 
       'app/**/*.module.js'
     ])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
     .pipe(concat('bz-module.js'))
     .pipe(ngAnnotate())
     .pipe(gulp.dest(config.test))
@@ -194,6 +197,8 @@ gulp.task('bz:route:js', function () {
 
       'app/**/*.route.js'
     ])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
     .pipe(concat('bz-route.js'))
     .pipe(ngAnnotate())
     .pipe(gulp.dest(config.test))
@@ -223,6 +228,8 @@ gulp.task('bz:js', function () {
       'app/**/*.directive.js'
 
     ])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
     .pipe(concat('bz.js'))
     .pipe(ngAnnotate())
     .pipe(gulp.dest(config.test))
@@ -328,6 +335,8 @@ gulp.task('js', function () {
       'app/**/*.route.js',
       'app/app.js'
     ])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
     .pipe(ngAnnotate())
     .pipe(gulp.dest(config.dist))

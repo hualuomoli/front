@@ -1,6 +1,6 @@
 {
   "name": "front",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "angular + bootstrap + ui-router",
   "main": "app.js",
   "scripts": {
