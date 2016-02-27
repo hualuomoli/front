@@ -1,11 +1,9 @@
-'use static';
-
 var express = require('express');
 var path = require('path');
 var app = express();
 
 // 
-app.use('/app', express.static(path.join(__dirname, 'app')));
+app.use('/', express.static(path.join(__dirname, 'app')));
 app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
 app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use('/', express.static(path.join(__dirname, './')));
