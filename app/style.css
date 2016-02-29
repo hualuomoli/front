@@ -628,5 +628,7 @@ table.dataTable thead .sorting:after {
 }
 
 .test {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
 }
