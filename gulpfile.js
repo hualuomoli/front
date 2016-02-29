@@ -7,6 +7,7 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   // rename
   rename = require("gulp-rename"),
+
   // min
   // css
   sourcemaps = require('gulp-sourcemaps'),
@@ -22,12 +23,15 @@ var gulp = require('gulp'),
   // html
   minifyHTML = require('gulp-minify-html'),
 
+  // image
+  imagemin = require('gulp-imagemin'),
+  pngquant = require('imagemin-pngquant'),
+
   // async reload browser
   browserSync = require('browser-sync').create();
 
 // config
 var config = {
-  dev: 'dev',
   test: 'test',
   dist: 'dist'
 };
@@ -35,55 +39,8 @@ var config = {
 ///////////////////////////////////////////////////
 //////////////////////  dev  //////////////////////
 ///////////////////////////////////////////////////
-// clean 
-gulp.task('clean:dev', function () {
-  return gulp.src(config.dev, {
-      read: false
-    })
-    .pipe(rimraf());
-});
-// js:dev
-gulp.task('js:dev', function () {
-  return gulp.src([
-      'app/**/*.js'
-    ])
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(gulp.dest(config.dev));
-});
-// css:dev
-gulp.task('css:dev', function () {
-  return gulp.src("app/**/*.css", {
-      base: 'app'
-    })
-    .pipe(sourcemaps.init())
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions'],
-      cascade: false
-    }))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(config.dev));
-});
-// image:dev
-gulp.task('image:dev', function () {
-  return gulp.src(["app/**/*.jpg"], {
-      base: 'app'
-    })
-    .pipe(gulp.dest(config.dev));
-});
-// html:dev
-gulp.task('html:dev', function () {
-  return gulp.src(['app/**/*.html'], {
-      base: 'app'
-    })
-    .pipe(gulp.dest(config.dev));
-});
-gulp.task('dev', ['clean:dev'], function () {
-
-  gulp.start('js:dev');
-  gulp.start('css:dev');
-  gulp.start('image:dev');
-  gulp.start('html:dev');
+// dev
+gulp.task('dev', function () {
 
   browserSync.init({
     https: false, // 是否使用https
@@ -98,7 +55,7 @@ gulp.task('dev', ['clean:dev'], function () {
         "/static": "static",
       }
     },
-    startPath: "./" + config.dev + "/", // 启动路径
+    startPath: "./app/", // 启动路径
     // browser: ["google chrome"], // 默认打开浏览器
     // reloadDelay: 200, // 延迟加载时间(毫秒)
     // ui: { // UI 配置
@@ -111,16 +68,10 @@ gulp.task('dev', ['clean:dev'], function () {
     // },
     // logLevel: "debug",
     // logPrefix: "Front",
-    open: "external" // 默认打开本地(local/external)
+    open: "local" // 默认打开本地(local/external)
   });
 
-  gulp.watch(['app/**/*.js'], ['js:dev']);
-  gulp.watch(['app/**/*.css'], ['css:dev']);
-  gulp.watch(['app/**/*.jpg'], ['image:dev']);
-  gulp.watch(['app/**/*.html'], ['html:dev']);
-
-
-  return gulp.watch([config.dev + '/**/*']).on('change', browserSync.reload);
+  return gulp.watch(['app/**/*']).on('change', browserSync.reload);
 });
 
 ///////////////////////////////////////////////////
@@ -265,6 +216,13 @@ gulp.task('image:test', function () {
   return gulp.src(["app/**/*.jpg"], {
       base: 'app'
     })
+    .pipe(imagemin({
+      progressive: true,
+      svgoPlugins: [{
+        removeViewBox: false
+      }],
+      use: [pngquant()]
+    }))
     .pipe(gulp.dest(config.test));
 });
 // html:test
@@ -368,6 +326,13 @@ gulp.task('image', function () {
   return gulp.src(["app/**/*.jpg"], {
       base: 'app'
     })
+    .pipe(imagemin({
+      progressive: true,
+      svgoPlugins: [{
+        removeViewBox: false
+      }],
+      use: [pngquant()]
+    }))
     .pipe(gulp.dest(config.dist));
 });
 // html
