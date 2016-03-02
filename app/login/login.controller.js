@@ -9,7 +9,8 @@
     /* jshint validthis:true */
     var login = this;
     login.remember = false;
-    login.error = '';
+    login.error = false;
+    login.errorMsg = '';
     login.username = '';
     login.password = '';
 
@@ -21,7 +22,8 @@
       if (loginService.login(login.username, login.password)) {
         $state.go('home.dashboard');
       } else {
-        login.error = 'username or password error!';
+        login.error = true;
+        login.errorMsg = 'username or password error!';
       }
     }
 
