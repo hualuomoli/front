@@ -1,7 +1,6 @@
 {
   "predef": [
     "module",
-    "require",
     "__dirname",
     "process",
     "console",
@@ -10,7 +9,7 @@
     "before",
     "after"
   ],
-  "strict": false,
+  "strict": true,
   "undef": true,
-  "unused": false
+  "unused": true
 }
