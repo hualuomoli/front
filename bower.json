@@ -1,0 +1,22 @@
+{
+  "name": "ng-bs3-mstp",
+  "homepage": "https://github.com/hualuomoli/front",
+  "authors": [
+    "hualuomoli <liubaoquan0831@163.com>"
+  ],
+  "description": "front bootstrap angular",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "front-blocks": "https://github.com/hualuomoli/front-blocks.git"
+  }
+}

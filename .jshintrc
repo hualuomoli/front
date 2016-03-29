@@ -1,5 +1,7 @@
 {
   "predef": [
+    "require",
+    "window",
     "module",
     "__dirname",
     "process",
@@ -11,5 +13,8 @@
   ],
   "strict": true,
   "undef": true,
-  "unused": true
+  "unused": false,
+  "expr": true,
+  "sub": true,
+  "asi": true
 }

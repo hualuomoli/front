@@ -3,7 +3,7 @@
 前端框架使用，使用 jquery bootstrap font-awesome angular angular-ui-router
 
 # 规范
-所有代码需要符合angular的[规范](https://github.com/johnpapa/angular-styleguide/blob/master/i18n/zh-CN.md)
+所有代码需要符合angular的[规范](https://github.com/johnpapa/angular-styleguide/blob/vscode/snips/i18n/zh-CN.md)
 
 # 目录结构
 
