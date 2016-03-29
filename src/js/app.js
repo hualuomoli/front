@@ -1,4 +1,4 @@
-(function ($) {
+(function () {
   'use strict';
 
   // class
@@ -49,4 +49,4 @@
     }, 300);
   });
 
-})(window.jQuery);
+})();

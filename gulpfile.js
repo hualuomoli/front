@@ -20,7 +20,18 @@
   // html
   var htmlreplace = require('gulp-html-replace');
 
+  // md5
+  var rev = require('gulp-rev');
+
+  // browser
   var browserSync = require('browser-sync').create();
+
+  var tmp = {
+    // css-assets
+    // css-app
+    // js-assets
+    // js-app
+  };
 
   // clean
   gulp.task('clean', function () {
@@ -49,6 +60,10 @@
         './bower_components/angular-bootstrap/ui-bootstrap-tpls.js'
       ])
       .pipe(concat('assets.js'))
+      .pipe(rev())
+      .pipe(rename(function (path) {
+        tmp['js-assets'] = path.basename;
+      }))
       .pipe(gulp.dest('./dist/js'))
       .pipe(sourcemaps.init())
       .pipe(uglify())
@@ -68,11 +83,17 @@
         './src/app/**/*.provider.js', // provider
         './src/app/**/*.controller.js', // controller
         './src/app/**/*.config.js', // config
-        './src/app/**/*.router.js' // router
+        './src/app/**/*.router.js', // router
+
+        './src/js/**/*'
       ])
       .pipe(jshint())
       .pipe(jshint.reporter('default'))
       .pipe(concat('app.js'))
+      .pipe(rev())
+      .pipe(rename(function (path) {
+        tmp['js-app'] = path.basename;
+      }))
       .pipe(ngAnnotate())
       .pipe(gulp.dest('./dist/js'))
       .pipe(sourcemaps.init())
@@ -108,6 +129,10 @@
         './bower_components/simple-line-icons/css/simple-line-icons.css'
       ])
       .pipe(concat('assets.css'))
+      .pipe(rev())
+      .pipe(rename(function (path) {
+        tmp['css-assets'] = path.basename;
+      }))
       .pipe(gulp.dest('./dist/css'))
       .pipe(sourcemaps.init())
       .pipe(cleanCSS())
@@ -126,6 +151,10 @@
         './src/css/app.css'
       ])
       .pipe(concat('app.css'))
+      .pipe(rev())
+      .pipe(rename(function (path) {
+        tmp['css-app'] = path.basename;
+      }))
       .pipe(gulp.dest('./dist/css'))
       .pipe(sourcemaps.init())
       .pipe(cleanCSS())
@@ -134,6 +163,7 @@
       }))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest('./dist/css'));
+
   });
 
   // css
@@ -154,11 +184,11 @@
     return gulp.src('./src/index.html')
       .pipe(htmlreplace({
         // css
-        'css-assets': './css/assets.css',
-        'css-app': './css/app.css',
+        'css-assets': './css/' + tmp['css-assets'] + '.css',
+        'css-app': './css/' + tmp['css-app'] + '.css',
         // js
-        'js-assets': './js/assets.js',
-        'js-app': './js/app.js'
+        'js-assets': './js/' + tmp['js-assets'] + '.js',
+        'js-app': './js/' + tmp['js-app'] + '.js',
       }))
       .pipe(gulp.dest('./dist'));
   });
