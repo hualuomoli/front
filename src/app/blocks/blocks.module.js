@@ -4,7 +4,8 @@
   angular.module('blocks', [
     'blocks.logger',
     'blocks.exception',
-    'blocks.routehelper'
+    'blocks.routehelper',
+    'blocks.http'
   ]);
 
 })();
