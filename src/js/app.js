@@ -44,7 +44,7 @@
 
     $this.next().is('ul') && e.preventDefault();
 
-    setTimeout(function () {
+    window.setTimeout(function () {
       $(document).trigger('updateNav');
     }, 300);
   });

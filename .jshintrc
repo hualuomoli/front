@@ -3,6 +3,8 @@
     "require",
     "angular",
     "$",
+    "window",
+    "document",
     "console",
     "it",
     "describe",
