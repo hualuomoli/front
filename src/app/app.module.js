@@ -1,4 +1,4 @@
-(function (angular) {
+(function () {
   'use strict';
 
   angular.module('app', [
@@ -7,4 +7,4 @@
     'oc.lazyLoad'
   ]);
 
-})(window.angular);
+})();

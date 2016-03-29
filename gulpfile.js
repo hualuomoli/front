@@ -15,6 +15,11 @@
   var ngAnnotate = require('gulp-ng-annotate');
   var uglify = require('gulp-uglify');
 
+  var cleanCSS = require('gulp-clean-css');
+
+  // html
+  var htmlreplace = require('gulp-html-replace');
+
   var browserSync = require('browser-sync').create();
 
   // clean
@@ -25,48 +30,154 @@
       .pipe(clean());
   });
 
-  // uglify js
-  gulp.task('js', function () {
+  // js - assets
+  gulp.task('js:assets', function () {
     return gulp.src([
-        './src/app/**/*.module.js', // module
-        './src/app/**/*.factory.js', // factory
-        './src/app/**/*.service.js', // service
-        './src/app/**/*.provider.js', // provider
-        './src/app/**/*.router.js', // router
-        './src/app/**/*.config.js', // config
-        './src/app/**/*.controller.js' // controller
+        './bower_components/jquery/dist/jquery.js',
+        './bower_components/bootstrap/dist/js/bootstrap.js',
+        './bower_components/angular/angular.js',
+        './bower_components/angular-ui-router/release/angular-ui-router.js',
+        './bower_components/oclazyload/dist/ocLazyLoad.js',
+
+        './bower_components/ngstorage/ngStorage.js',
+        './bower_components/angular-animate/angular-animate.js',
+        './bower_components/angular-cookies/angular-cookies.js',
+        './bower_components/angular-resource/angular-resource.js',
+        './bower_components/angular-sanitize/angular-sanitize.js',
+        './bower_components/angular-touch/angular-touch.js',
+
+        './bower_components/angular-bootstrap/ui-bootstrap-tpls.js'
       ])
-      .pipe(jshint())
-      .pipe(jshint.reporter('default'))
-      .pipe(concat('app.js'))
-      .pipe(ngAnnotate())
-      .pipe(gulp.dest('./dist'))
+      .pipe(concat('assets.js'))
+      .pipe(gulp.dest('./dist/js'))
       .pipe(sourcemaps.init())
       .pipe(uglify())
       .pipe(rename(function (path) {
         path.basename += ".min";
       }))
       .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest('./dist/js'));
+  });
+
+  // js - app
+  gulp.task('js:app', function () {
+    return gulp.src([
+        './src/app/**/*.module.js', // module
+        './src/app/**/*.service.js', // service
+        './src/app/**/*.factory.js', // factory
+        './src/app/**/*.provider.js', // provider
+        './src/app/**/*.controller.js', // controller
+        './src/app/**/*.config.js', // config
+        './src/app/**/*.router.js' // router
+      ])
+      .pipe(jshint())
+      .pipe(jshint.reporter('default'))
+      .pipe(concat('app.js'))
+      .pipe(ngAnnotate())
+      .pipe(gulp.dest('./dist/js'))
+      .pipe(sourcemaps.init())
+      .pipe(uglify())
+      .pipe(rename(function (path) {
+        path.basename += ".min";
+      }))
+      .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest('./dist/js'));
+  });
+
+  // js
+  gulp.task('js', ['js:assets', 'js:app'], function (cb) {
+    return cb();
+  });
+
+  // fonts
+  gulp.task('fonts', function () {
+    return gulp.src([
+        './bower_components/bootstrap/dist/fonts/**/*',
+        './bower_components/font-awesome/fonts/**/*',
+        './bower_components/simple-line-icons/fonts/**/*',
+        './src/fonts/**/*'
+      ])
+      .pipe(gulp.dest('./dist/fonts'));
+  })
+
+  // css - assets
+  gulp.task('css:assets', ['fonts'], function () {
+    return gulp.src([
+        './bower_components/bootstrap/dist/css/bootstrap.css',
+        './bower_components/font-awesome/css/font-awesome.css',
+        './bower_components/simple-line-icons/css/simple-line-icons.css'
+      ])
+      .pipe(concat('assets.css'))
+      .pipe(gulp.dest('./dist/css'))
+      .pipe(sourcemaps.init())
+      .pipe(cleanCSS())
+      .pipe(rename(function (path) {
+        path.basename += ".min";
+      }))
+      .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest('./dist/css'));
+  });
+
+  // css - app
+  gulp.task('css:app', function () {
+    return gulp.src([
+        './src/css/animate.css',
+        './src/css/font.css',
+        './src/css/app.css'
+      ])
+      .pipe(concat('app.css'))
+      .pipe(gulp.dest('./dist/css'))
+      .pipe(sourcemaps.init())
+      .pipe(cleanCSS())
+      .pipe(rename(function (path) {
+        path.basename += ".min";
+      }))
+      .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest('./dist/css'));
+  });
+
+  // css
+  gulp.task('css', ['css:assets', 'css:app'], function (cb) {
+    return cb();
+  });
+
+  // image
+  gulp.task('image', function () {
+    return gulp.src([
+        './src/img/**/*'
+      ])
+      .pipe(gulp.dest('./dist/img'));
+  });
+
+  // html - index
+  gulp.task('html:index', ['css'], function () {
+    return gulp.src('./src/index.html')
+      .pipe(htmlreplace({
+        // css
+        'css-assets': './css/assets.css',
+        'css-app': './css/app.css',
+        // js
+        'js-assets': './js/assets.js',
+        'js-app': './js/app.js'
+      }))
       .pipe(gulp.dest('./dist'));
   });
 
-  // app
-  gulp.task('app', ['js'], function () {
-    console.log('================');
-    return gulp.src([
-        './src/css/**/*',
-        './src/js/**/*',
-        './src/img/**/*',
-        './src/fonts/**/*',
-        './src/**/*.html'
-      ], {
-        base: './src'
-      })
-      .pipe(gulp.dest('./dist'));
+  // html - tpl
+  gulp.task('html:tpl', function () {
+    return gulp.src(
+        ['./src/tpl/**/*']
+      )
+      .pipe(gulp.dest('./dist/tpl'));
+  });
+
+  // html
+  gulp.task('html', ['html:index', 'html:tpl'], function (cb) {
+    return cb();
   });
 
   // watch
-  gulp.task('watch', ['app'], function () {
+  gulp.task('watch', ['js', 'css', 'image', 'html'], function (cb) {
 
     browserSync.init({
       port: 3000, // 端口
@@ -80,7 +191,13 @@
       startPath: "./" // 启动路径
     });
 
-    return gulp.watch('./src/**/*', ['app']).on('change', browserSync.reload);
+    // js - app
+    gulp.watch('./src/app/**/*', ['js:app']).on('change', browserSync.reload);
+    gulp.watch('./src/tpl/**/*', ['html:tpl']).on('change', browserSync.reload);
+    gulp.watch('./src/index.html', ['html:index']).on('change', browserSync.reload);
+    gulp.watch('./src/css/**/*', ['css:app']).on('change', browserSync.reload);
+
+    return cb();
 
   });
 

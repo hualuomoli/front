@@ -1,24 +1,28 @@
-(function (angular) {
+(function () {
   'use strict';
 
   angular.module('app')
     .config(config);
 
   /* @ngInject */
-  function config($stateProvider, $urlRouterProvider) {
+  function config($stateProvider, $urlRouterProvider, appHandlerProvider) {
 
-    $urlRouterProvider.otherwise('/app/dashboard');
+    var route = appHandlerProvider.config.route;
 
+    // default
+    $urlRouterProvider.otherwise(route.root.url + route.dashboard.url);
+
+    // app and dashboard
     $stateProvider
-      .state('app', {
+      .state(route.root.state, {
         abstract: true,
-        url: '/app',
-        templateUrl: 'tpl/app.html'
+        url: route.root.url,
+        templateUrl: route.root.templateUrl
       })
-      .state('app.dashboard', {
-        url: '/dashboard',
-        template: 'tpl/dashboard.html'
+      .state(route.dashboard.state, {
+        url: route.dashboard.url,
+        templateUrl: route.dashboard.templateUrl
       })
   }
 
-})(window.angular);
+})();

@@ -17,6 +17,9 @@
     "tests"
   ],
   "dependencies": {
-    "front-blocks": "https://github.com/hualuomoli/front-blocks.git"
+    "front-blocks": "https://github.com/hualuomoli/front-blocks.git",
+    "SourceSansPro": "*",
+    "bower-font-source-sans-pro": "https://github.com/ryzy/bower-font-source-sans-pro",
+    "source-sans-pro": "^1.0.0"
   }
 }

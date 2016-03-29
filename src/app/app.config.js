@@ -1,11 +1,11 @@
-(function (angular) {
+(function () {
   'use strict';
 
   angular.module('app')
     .config(config);
 
   /* @ngInject */
-  function config($locationProvider, $ocLazyLoadProvider) {
+  function config($locationProvider, $ocLazyLoadProvider, appHandlerProvider) {
 
 
     $locationProvider.hashPrefix('!');
@@ -18,6 +18,8 @@
       events: true
     });
 
+    // appHandlerProvider.config.route.root.templateUrl = 'tpl/app.html';
+
   }
 
-})(window.angular);
+})();

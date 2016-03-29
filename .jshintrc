@@ -1,10 +1,7 @@
 {
   "predef": [
     "require",
-    "window",
-    "module",
-    "__dirname",
-    "process",
+    "angular",
     "console",
     "it",
     "describe",
