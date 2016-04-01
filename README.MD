@@ -17,5 +17,5 @@
 
 
 # 如何使用
-
+全局安装 `npm install -g gulp-cli bower jshint`<br>
 下载项目，执行`npm install & bower install & gulp`
