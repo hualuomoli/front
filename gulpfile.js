@@ -212,7 +212,7 @@ gulp.task('watch', ['js', 'css', 'image', 'html'], function (cb) {
       baseDir: ['./client/dist'], // 主目录
       index: "index.html", // 主页
       routes: { // 路由
-        "/bower_components": "bower_components",
+        // "/bower_components": "bower_components",
       }
     },
     startPath: "./" // 启动路径
