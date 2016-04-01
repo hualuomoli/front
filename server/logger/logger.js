@@ -15,7 +15,8 @@ log4js.configure({
     "type": "console"
   }, {
     "type": "file",
-    "filename": "logs/log.log",
+    "absolute": true,
+    "filename": logs + "/log.log",
     "maxLogSize": 20480,
     "backups": 3
   }, {
@@ -23,7 +24,8 @@ log4js.configure({
     "level": "error",
     "appender": {
       "type": "file",
-      "filename": "logs/errors.log",
+      "absolute": true,
+      "filename": logs + "/errors.log",
       "maxLogSize": 204800,
       "backups": 3
     }

@@ -5,7 +5,11 @@
     "process",
     "__dirname",
     "path",
-    "console"
+    "console",
+    "it",
+    "describe",
+    "before",
+    "after"
   ],
   "strict": false,
   "undef": true,
