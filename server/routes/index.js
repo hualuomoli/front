@@ -1,14 +1,14 @@
 var express = require('express');
 
 // routes
-var user = require('./user');
+var demo = require('./demo');
 
 module.exports = function (app) {
 
   setCross(app);
 
   // user
-  app.use('/user', user);
+  app.use('/demo', demo);
 
 }
 
