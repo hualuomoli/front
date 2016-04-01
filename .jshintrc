@@ -1,0 +1,9 @@
+{
+  "predef": [
+    "require"
+  ],
+  "strict": false,
+  "undef": true,
+  "unused": false,
+  "asi": true
+}

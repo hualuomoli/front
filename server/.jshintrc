@@ -1,17 +1,13 @@
 {
   "predef": [
     "require",
-    "angular",
-    "$",
-    "window",
-    "document",
     "console",
     "it",
     "describe",
     "before",
     "after"
   ],
-  "strict": true,
+  "strict": false,
   "undef": true,
   "unused": false,
   "expr": true,
