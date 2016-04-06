@@ -7,6 +7,8 @@ module.exports = function (app) {
 
   setCross(app);
 
+  app.post('/demo/*', urlencodedObjectParser);
+
   // user
   app.use('/demo', demo);
 
@@ -24,4 +26,18 @@ function setCross(app) {
     next();
   });
 
+}
+
+// parse urlencoded post object
+function urlencodedObjectParser(req, res, next) {
+  if (req.headers['content-type'] == 'application/x-www-form-urlencoded') {
+    // TODO
+    var address = {};
+    address.code = req.body['address[code]'];
+    address.home = req.body['address[home]'];
+    req.body.address = address;
+    delete req.body['address[code]'];
+    delete req.body['address[home]'];
+  }
+  next();
 }

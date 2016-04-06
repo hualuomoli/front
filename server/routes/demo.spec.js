@@ -48,12 +48,18 @@ describe('test server response parameter and body', function () {
         .get('/demo/query')
         .query({
           username: 'admin',
-          token: '1234567890'
+          token: '1234567890',
+          address: {
+            code: '370203',
+            home: '山东省青岛市市北区'
+          }
         })
         .expect(200)
         .expect(function (res) {
           assert.equal(res.body.username, 'admin');
           assert.equal(res.body.token, '1234567890');
+          assert.equal(res.body.address.code, '370203');
+          assert.equal(res.body.address.home, '山东省青岛市市北区');
         })
         .end(done);
     });
@@ -61,11 +67,13 @@ describe('test server response parameter and body', function () {
     it('shold send parameter by urlencoded', function (done) {
       request
         .get('/demo/query')
-        .query('username=admin&token=1234567890')
+        .query('username=admin&token=1234567890&address[code]=370203&address[home]=' + encodeURIComponent('山东省青岛市市北区'))
         .expect(200)
         .expect(function (res) {
           assert.equal(res.body.username, 'admin');
           assert.equal(res.body.token, '1234567890');
+          assert.equal(res.body.address.code, '370203');
+          assert.equal(res.body.address.home, '山东省青岛市市北区');
         })
         .end(done);
     });
@@ -75,10 +83,14 @@ describe('test server response parameter and body', function () {
         .get('/demo/query')
         .query('username=admin')
         .query('token=1234567890')
+        .query('address[code]=370203')
+        .query('&address[home]=' + encodeURIComponent('山东省青岛市市北区'))
         .expect(200)
         .expect(function (res) {
           assert.equal(res.body.username, 'admin');
           assert.equal(res.body.token, '1234567890');
+          assert.equal(res.body.address.code, '370203');
+          assert.equal(res.body.address.home, '山东省青岛市市北区');
         })
         .end(done);
     });
@@ -93,12 +105,18 @@ describe('test server response parameter and body', function () {
         .post('/demo/post')
         .send({
           username: 'admin',
-          token: '1234567890'
+          token: '1234567890',
+          address: {
+            code: '370203',
+            home: '山东省青岛市市北区'
+          }
         })
         .expect(200)
         .expect(function (res) {
           assert.equal(res.body.username, 'admin');
           assert.equal(res.body.token, '1234567890');
+          assert.equal(res.body.address.code, '370203');
+          assert.equal(res.body.address.home, '山东省青岛市市北区');
         })
         .end(done);
     });
@@ -106,11 +124,13 @@ describe('test server response parameter and body', function () {
     it('shold send parameter by urlencoded', function (done) {
       request
         .post('/demo/post')
-        .send('username=admin&token=1234567890')
+        .send('username=admin&token=1234567890&address[code]=370203&address[home]=山东省青岛市市北区')
         .expect(200)
         .expect(function (res) {
           assert.equal(res.body.username, 'admin');
           assert.equal(res.body.token, '1234567890');
+          assert.equal(res.body.address.code, '370203');
+          assert.equal(res.body.address.home, '山东省青岛市市北区');
         })
         .end(done);
     });
@@ -120,10 +140,14 @@ describe('test server response parameter and body', function () {
         .post('/demo/post')
         .send('username=admin')
         .send('token=1234567890')
+        .send('address[code]=370203')
+        .send('address[home]=山东省青岛市市北区')
         .expect(200)
         .expect(function (res) {
           assert.equal(res.body.username, 'admin');
           assert.equal(res.body.token, '1234567890');
+          assert.equal(res.body.address.code, '370203');
+          assert.equal(res.body.address.home, '山东省青岛市市北区');
         })
         .end(done);
     });
@@ -155,6 +179,8 @@ describe('test server response parameter and body', function () {
         .post('/demo/upload')
         .field('username', 'admin')
         .field('token', '1234567890')
+        .field('address[code]', '370203')
+        .field('address[home]', '山东省青岛市市北区')
         .attach('photo', 'C:/Users/admin/Pictures/Saved Pictures/3422.jpg')
         .attach('background', 'C:/Users/admin/Pictures/Saved Pictures/1106628.jpg')
         .expect(200)
@@ -163,6 +189,8 @@ describe('test server response parameter and body', function () {
           assert.equal(res.body.token, '1234567890');
           assert.equal(res.body.photo, '3422.jpg');
           assert.equal(res.body.background, '1106628.jpg');
+          assert.equal(res.body.address.code, '370203');
+          assert.equal(res.body.address.home, '山东省青岛市市北区');
         })
         .end(done);
     });

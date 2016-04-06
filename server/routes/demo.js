@@ -38,6 +38,7 @@ router.get('/res/xml', function (req, res, next) {
 router.get('/query', function (req, res) {
   logger.debug('query parameter[username] is ' + req.query.username);
   logger.debug('query parameter[token] is ' + req.query.token);
+  logger.debug('query parameter[address] is ' + JSON.stringify(req.query.address));
   res.send(req.query);
 });
 
@@ -47,6 +48,7 @@ router.get('/query', function (req, res) {
 router.post('/post', function (req, res) {
   logger.debug('post parameter[username] is ' + req.body.username);
   logger.debug('post parameter[token] is ' + req.body.token);
+  logger.debug('post parameter[address] is ' + JSON.stringify(req.body.address));
   res.send(req.body);
 });
 
@@ -67,6 +69,8 @@ router.post('/upload', function (req, res) {
 
   logger.debug('upload file parameter[username] is ' + req.body.username);
   logger.debug('upload file parameter[token] is ' + req.body.token);
+  logger.debug('upload file parameter[token] is ' + JSON.stringify(req.body.address));
+
 
   logger.debug('upload file photo is ' + req.files.photo.path);
   logger.debug('upload file background is ' + req.files.background.path);
@@ -76,6 +80,7 @@ router.post('/upload', function (req, res) {
     .send({
       username: req.body.username,
       token: req.body.token,
+      address: req.body.address,
       photo: req.files.photo.originalname,
       background: req.files.background.originalname
     });
