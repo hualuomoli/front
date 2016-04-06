@@ -2,100 +2,172 @@ var app = require('../app');
 var request = require('supertest').agent(app.listen());
 var assert = require('assert');
 
-describe('use mocha test nodejs', function () {
+describe('test server response parameter and body', function () {
 
-  describe('response type', function () {
-    it('should response text/plain type ', function (done) {
+  // response type
+  describe('test server response type', function () {
+
+    it('should response text/plain ', function (done) {
       request
-        .get('/demo/type/txt')
+        .get('/demo/res/txt')
         .expect(200)
+        .expect('Content-Type', 'text/plain; charset=utf-8')
+        .expect(function (res) {
+          assert.equal(res.text, 'ok');
+        })
         .expect("ok", done);
     })
 
-    it('should response text content equal ok ', function (done) {
+    it('should response application/json ', function (done) {
       request
-        .get('/demo/type/txt')
-        .expect(200, function (req, res) {
-          assert.equal(res.text, 'ok');
-          done();
-        });
-    })
-
-    it('should response application/json type ', function (done) {
-      request
-        .get('/demo/type/json')
+        .get('/demo/res/json')
         .expect(200)
-        .expect({
-          "msg": "ok"
-        }, done);
-    })
-
-    it('should response json msg equal ok ', function (done) {
-      request
-        .get('/demo/type/json')
-        .expect(200, function (req, res) {
+        .expect('Content-Type', 'application/json; charset=utf-8')
+        .expect(function (res) {
           assert.equal(res.body.msg, 'ok');
-          done();
-        });
+        })
+        .end(done);
+    })
+
+    it('should response application/xml ', function (done) {
+      request
+        .get('/demo/res/xml')
+        .expect(200)
+        .expect('Content-Type', 'application/xml; charset=utf-8')
+        .expect('<root><username>admin</username><token>123456</token></root>', done);
     })
 
   });
 
-  describe('send parameter by get method', function () {
 
-    // it('should send param in url', function (done) {
-    //   request
-    //     .get('/demo/parameter?username=manager&nickname=管理员')
-    //     .set('Accept', 'text/plain')
-    //     .expect(200)
-    //     .expect('ok', done);
-    // });
+  // send parameter by get method
+  describe('test get method', function () {
 
-    it('should send param in text', function (done) {
+    it('shold send parameter by json', function (done) {
       request
-        .get('/demo/parameter')
-        .set('Accept', 'text')
-        .send('username=manager&nickname=管理员')
-        .expect(200)
-        .expect('ok', done);
-    });
-
-    it('should send param in urlencoded', function (done) {
-      request
-        .get('/demo/parameter')
-        .set('Accept', 'application/json')
-        .send('username=manager&nickname=管理员')
-        .expect(200)
-        .expect('ok', done);
-    });
-
-
-
-  });
-
-  describe('send parameter by post method', function () {
-
-    it('should send param by json', function (done) {
-      request
-        .post('/demo/parameter')
-        .send({
-          "username": "manager",
-          "nickname": "管理员"
+        .get('/demo/query')
+        .query({
+          username: 'admin',
+          token: '1234567890'
         })
         .expect(200)
-        .expect('ok', done);
+        .expect(function (res) {
+          assert.equal(res.body.username, 'admin');
+          assert.equal(res.body.token, '1234567890');
+        })
+        .end(done);
     });
 
-    it('should send param by urlencoded', function (done) {
+    it('shold send parameter by urlencoded', function (done) {
       request
-        .post('/demo/parameter')
-        .send("username=manager&nickname=管理员")
+        .get('/demo/query')
+        .query('username=admin&token=1234567890')
         .expect(200)
-        .expect('ok', done);
+        .expect(function (res) {
+          assert.equal(res.body.username, 'admin');
+          assert.equal(res.body.token, '1234567890');
+        })
+        .end(done);
+    });
+
+    it('shold send parameter by parameter array', function (done) {
+      request
+        .get('/demo/query')
+        .query('username=admin')
+        .query('token=1234567890')
+        .expect(200)
+        .expect(function (res) {
+          assert.equal(res.body.username, 'admin');
+          assert.equal(res.body.token, '1234567890');
+        })
+        .end(done);
     });
 
   });
 
+  // send parameter by post method
+  describe('test post method', function () {
+
+    it('shold send parameter by json', function (done) {
+      request
+        .post('/demo/post')
+        .send({
+          username: 'admin',
+          token: '1234567890'
+        })
+        .expect(200)
+        .expect(function (res) {
+          assert.equal(res.body.username, 'admin');
+          assert.equal(res.body.token, '1234567890');
+        })
+        .end(done);
+    });
+
+    it('shold send parameter by urlencoded', function (done) {
+      request
+        .post('/demo/post')
+        .send('username=admin&token=1234567890')
+        .expect(200)
+        .expect(function (res) {
+          assert.equal(res.body.username, 'admin');
+          assert.equal(res.body.token, '1234567890');
+        })
+        .end(done);
+    });
+
+    it('shold send parameter by parameter array', function (done) {
+      request
+        .post('/demo/post')
+        .send('username=admin')
+        .send('token=1234567890')
+        .expect(200)
+        .expect(function (res) {
+          assert.equal(res.body.username, 'admin');
+          assert.equal(res.body.token, '1234567890');
+        })
+        .end(done);
+    });
+
+  });
+
+
+  // send parameter in uri route
+  describe('test uri method', function () {
+
+    it('shold send parameter in uri method', function (done) {
+      request
+        .post('/demo/uri/admin/1234567890')
+        .expect(200)
+        .expect(function (res) {
+          assert.equal(res.body.username, 'admin');
+          assert.equal(res.body.token, '1234567890');
+        })
+        .end(done);
+    });
+
+  });
+
+  // upload
+  describe('test upload file', function () {
+
+    it('shold upload file', function (done) {
+      request
+        .post('/demo/upload')
+        .field('username', 'admin')
+        .field('token', '1234567890')
+        .attach('photo', 'C:/Users/admin/Pictures/Saved Pictures/3422.jpg')
+        .attach('background', 'C:/Users/admin/Pictures/Saved Pictures/1106628.jpg')
+        .expect(200)
+        .expect(function (res) {
+          assert.equal(res.body.username, 'admin');
+          assert.equal(res.body.token, '1234567890');
+          assert.equal(res.body.photo, '3422.jpg');
+          assert.equal(res.body.background, '1106628.jpg');
+        })
+        .end(done);
+    });
+
+  });
 
 
 });
