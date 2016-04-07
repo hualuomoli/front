@@ -1,4 +1,5 @@
 var express = require('express');
+var util = require('util');
 var logger = require('../logger/logger');
 
 var router = express.Router();
@@ -46,9 +47,48 @@ router.get('/query', function (req, res) {
 // body parameter
 ////////////////////////////
 router.post('/post', function (req, res) {
-  logger.debug('post parameter[username] is ' + req.body.username);
-  logger.debug('post parameter[token] is ' + req.body.token);
-  logger.debug('post parameter[address] is ' + JSON.stringify(req.body.address));
+  logger.debug('post object parameter username is ' + req.body.username);
+  logger.debug('post object parameter token is ' + req.body.token);
+  // simple object
+  logger.debug('post object parameter info is object ' + util.isObject(req.body.info));
+  logger.debug('post object parameter info is ' + JSON.stringify(req.body.info));
+  logger.debug('post object parameter info[nickname] is ' + req.body.info.nickname);
+  logger.debug('post object parameter info[gender] is ' + req.body.info.gender);
+  logger.debug('post object parameter info[age] is ' + req.body.info.age);
+  // complex object
+  logger.debug('post object parameter order is object ' + util.isObject(req.body.order));
+  logger.debug('post object parameter order is ' + JSON.stringify(req.body.order));
+  logger.debug('post object parameter order[serialNumber] is ' + req.body.order.serialNumber);
+  logger.debug('post object parameter order[state] is ' + req.body.order.state);
+  // address
+  logger.debug('post object parameter order[address] is object ' + util.isObject(req.body.order.address));
+  logger.debug('post object parameter order[address] is ' + JSON.stringify(req.body.order.address));
+  logger.debug('post object parameter order[address][code] is ' + req.body.order.address.code);
+  logger.debug('post object parameter order[address][name] is ' + req.body.order.address.name);
+  // products
+  logger.debug('post object parameter order[products] is array ' + util.isArray(req.body.order.products));
+  logger.debug('post object parameter order[products] is ' + JSON.stringify(req.body.order.products));
+  for (var i = 0; i < req.body.order.products.length; i++) {
+    logger.debug('post object parameter order[products][' + i + '][id] is ' + req.body.order.products[i].id);
+    logger.debug('post object parameter order[products][' + i + '][name] is ' + req.body.order.products[i].name);
+    logger.debug('post object parameter order[products][' + i + '][price] is ' + req.body.order.products[i].price);
+    logger.debug('post object parameter order[products][' + i + '][amount] is ' + req.body.order.products[i].amount);
+  }
+  // simple array
+  logger.debug('post object parameter deliverTime is array ' + util.isArray(req.body.deliverTime));
+  for (var i = 0; i < req.body.deliverTime.length; i++) {
+    logger.debug('post object parameter deliverTime[' + i + '] is ' + JSON.stringify(req.body.deliverTime[i]));
+  }
+  // complex array
+  logger.debug('post object parameter educations is array ' + util.isArray(req.body.educations));
+  for (var i = 0; i < req.body.educations.length; i++) {
+    logger.debug('post object parameter educations[' + i + '] is object ' + util.isObject(req.body.educations[i]));
+    logger.debug('post object parameter educations[' + i + '][startTime] is ' + req.body.educations[i].startTime);
+    logger.debug('post object parameter educations[' + i + '][endTime] is ' + req.body.educations[i].endTime);
+    logger.debug('post object parameter educations[' + i + '][name] is ' + req.body.educations[i].name);
+    logger.debug('post object parameter educations[' + i + '][degree] is ' + req.body.educations[i].degree);
+  }
+
   res.send(req.body);
 });
 
