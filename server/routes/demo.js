@@ -1,5 +1,8 @@
 var express = require('express');
 var util = require('util');
+var fs = require('fs');
+var path = require('path');
+
 var logger = require('../logger/logger');
 
 var router = express.Router();
@@ -125,6 +128,19 @@ router.post('/upload', function (req, res) {
       background: req.files.background.originalname
     });
 
+});
+
+
+////////////////////////////
+// file download
+////////////////////////////
+router.get('/download/:id', function (req, res) {
+  console.log('download id is ' + req.params.id);
+  res.download(path.join(__dirname, 'index.js'), function (err) {
+    if (err) {
+      console.error(err);
+    }
+  });
 });
 
 module.exports = router;

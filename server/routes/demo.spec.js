@@ -1,4 +1,7 @@
 var assert = require('assert');
+var fs = require('fs');
+var path = require('path');
+
 var logger = require('../logger/logger');
 
 var request = require('supertest').agent(require('../app').listen());
@@ -312,16 +315,47 @@ describe('test server response parameter and body', function () {
         .field('token', '1234567890')
         .field('address[code]', '370203')
         .field('address[home]', '山东省青岛市市北区')
-        .attach('photo', 'C:/Users/admin/Pictures/Saved Pictures/3422.jpg')
-        .attach('background', 'C:/Users/admin/Pictures/Saved Pictures/1106628.jpg')
+        .attach('photo', path.join(__dirname, 'index.js'))
+        .attach('background', path.join(__dirname, 'demo.js'))
         .expect(200)
         .expect(function (res) {
           assert.equal(res.body.username, 'admin');
           assert.equal(res.body.token, '1234567890');
-          assert.equal(res.body.photo, '3422.jpg');
-          assert.equal(res.body.background, '1106628.jpg');
           assert.equal(res.body.address.code, '370203');
           assert.equal(res.body.address.home, '山东省青岛市市北区');
+          assert.equal(res.body.photo, 'index.js');
+          assert.equal(res.body.background, 'demo.js');
+        })
+        .end(done);
+    });
+
+  });
+
+
+  // upload
+  describe('test download file', function () {
+
+    it('shold download file', function (done) {
+      request
+        .get('/demo/download/1234')
+        .expect(200)
+        .expect(function (res) {
+          // get filename
+          var filename = res.headers['content-disposition'].substring('attachment; filename='.length);
+          filename = filename.substring(1, filename.length - 1);
+          assert.equal(filename, 'index.js');
+
+          // create folder
+          var folder = path.join(__dirname, '../downloads');
+          if (!fs.existsSync(folder)) {
+            fs.mkdirSync(folder);
+          }
+          // write
+          fs.writeFile(path.join(folder, filename), res.text, function (err) {
+            if (err) {
+              console.error(err);
+            }
+          });
         })
         .end(done);
     });
