@@ -41,111 +41,54 @@ describe('test server response parameter and body', function () {
 
   });
 
-  // data
-  var sendObject = {
-    username: 'admin',
-    token: '1234567890',
-    // simple object
-    info: {
-      nickname: '花落莫离',
-      gender: 'M',
-      age: '28'
-    },
-    // complex objet
-    order: {
-      serialNumber: '20160407090102123',
-      state: '0',
-      address: {
-        code: '370203',
-        name: '山东省青岛市市北区'
-      },
-      products: [{
-        id: '1234',
-        name: 'iphone SE',
-        price: '3456.03',
-        amount: '1'
-      }, {
-        id: '2345',
-        name: 'ipad pro',
-        price: '6666.66',
-        amount: '2'
-      }]
-    },
-    // simple array
-    deliverTime: ['1', '2', '3'],
-    // complex array
-    educations: [{
-      startTime: '2004',
-      endTime: '2007',
-      name: '高中',
-      degree: '中学'
-    }, {
-      startTime: '2007',
-      endTime: '2011',
-      name: '大学',
-      degree: '本科'
-    }, {
-      startTime: '2011',
-      endTime: '2014',
-      name: '研究生',
-      degree: '硕士'
-    }]
-  };
-  // $.param(sendObject);
-  var sendStr = 'username=admin&token=1234567890&info[nickname]=花落莫离&info[gender]=M&info[age]=28&order[serialNumber]=20160407090102123&order[state]=0&order[address][code]=370203&order[address][name]=山东省青岛市市北区&order[products][0][id]=1234&order[products][0][name]=iphone+SE&order[products][0][price]=3456.03&order[products][0][amount]=1&order[products][1][id]=2345&order[products][1][name]=ipad+pro&order[products][1][price]=6666.66&order[products][1][amount]=2&deliverTime[]=1&deliverTime[]=2&deliverTime[]=3&educations[0][startTime]=2004&educations[0][endTime]=2007&educations[0][name]=高中&educations[0][degree]=中学&educations[1][startTime]=2007&educations[1][endTime]=2011&educations[1][name]=大学&educations[1][degree]=本科&educations[2][startTime]=2011&educations[2][endTime]=2014&educations[2][name]=研究生&educations[2][degree]=硕士';
-  var sendEncodedStr = 'username=admin&token=1234567890&info%5Bnickname%5D=%E8%8A%B1%E8%90%BD%E8%8E%AB%E7%A6%BB&info%5Bgender%5D=M&info%5Bage%5D=28&order%5BserialNumber%5D=20160407090102123&order%5Bstate%5D=0&order%5Baddress%5D%5Bcode%5D=370203&order%5Baddress%5D%5Bname%5D=%E5%B1%B1%E4%B8%9C%E7%9C%81%E9%9D%92%E5%B2%9B%E5%B8%82%E5%B8%82%E5%8C%97%E5%8C%BA&order%5Bproducts%5D%5B0%5D%5Bid%5D=1234&order%5Bproducts%5D%5B0%5D%5Bname%5D=iphone+SE&order%5Bproducts%5D%5B0%5D%5Bprice%5D=3456.03&order%5Bproducts%5D%5B0%5D%5Bamount%5D=1&order%5Bproducts%5D%5B1%5D%5Bid%5D=2345&order%5Bproducts%5D%5B1%5D%5Bname%5D=ipad+pro&order%5Bproducts%5D%5B1%5D%5Bprice%5D=6666.66&order%5Bproducts%5D%5B1%5D%5Bamount%5D=2&deliverTime%5B%5D=1&deliverTime%5B%5D=2&deliverTime%5B%5D=3&educations%5B0%5D%5BstartTime%5D=2004&educations%5B0%5D%5BendTime%5D=2007&educations%5B0%5D%5Bname%5D=%E9%AB%98%E4%B8%AD&educations%5B0%5D%5Bdegree%5D=%E4%B8%AD%E5%AD%A6&educations%5B1%5D%5BstartTime%5D=2007&educations%5B1%5D%5BendTime%5D=2011&educations%5B1%5D%5Bname%5D=%E5%A4%A7%E5%AD%A6&educations%5B1%5D%5Bdegree%5D=%E6%9C%AC%E7%A7%91&educations%5B2%5D%5BstartTime%5D=2011&educations%5B2%5D%5BendTime%5D=2014&educations%5B2%5D%5Bname%5D=%E7%A0%94%E7%A9%B6%E7%94%9F&educations%5B2%5D%5Bdegree%5D=%E7%A1%95%E5%A3%AB';
 
   // send parameter by get method
   describe('test get method', function () {
 
+    var queryObject = {
+      "username": "admin",
+      "token": "1234567890",
+      "address": {
+        "code": "370203",
+        "home": "山东省青岛市市北区"
+      }
+    }
+
     it('shold send parameter by json', function (done) {
       request
         .get('/demo/query')
-        .query({
-          username: 'admin',
-          token: '1234567890',
-          address: {
-            code: '370203',
-            home: '山东省青岛市市北区'
-          }
-        })
+        .set('content-type', 'application/json')
+        .query(queryObject)
         .expect(200)
         .expect(function (res) {
-          assert.equal(res.body.username, 'admin');
-          assert.equal(res.body.token, '1234567890');
-          assert.equal(res.body.address.code, '370203');
-          assert.equal(res.body.address.home, '山东省青岛市市北区');
+          assert.equal(JSON.stringify(res.body), JSON.stringify(queryObject));
         })
         .end(done);
     });
 
-    it('shold send parameter by urlencoded', function (done) {
+    it('shold send encoded parameter by urlencoded', function (done) {
       request
         .get('/demo/query')
+        .set('content-type', 'application/x-www-form-urlencoded')
         .query('username=admin&token=1234567890&address[code]=370203&address[home]=' + encodeURIComponent('山东省青岛市市北区'))
         .expect(200)
         .expect(function (res) {
-          assert.equal(res.body.username, 'admin');
-          assert.equal(res.body.token, '1234567890');
-          assert.equal(res.body.address.code, '370203');
-          assert.equal(res.body.address.home, '山东省青岛市市北区');
+          assert.equal(JSON.stringify(res.body), JSON.stringify(queryObject));
         })
         .end(done);
     });
 
-    it('shold send parameter by parameter array', function (done) {
+    it('shold send encoded parameter by parameter array', function (done) {
       request
         .get('/demo/query')
+        .set('content-type', 'application/x-www-form-urlencoded')
         .query('username=admin')
         .query('token=1234567890')
         .query('address[code]=370203')
         .query('&address[home]=' + encodeURIComponent('山东省青岛市市北区'))
         .expect(200)
         .expect(function (res) {
-          assert.equal(res.body.username, 'admin');
-          assert.equal(res.body.token, '1234567890');
-          assert.equal(res.body.address.code, '370203');
-          assert.equal(res.body.address.home, '山东省青岛市市北区');
+          assert.equal(JSON.stringify(res.body), JSON.stringify(queryObject));
         })
         .end(done);
     });
@@ -154,6 +97,61 @@ describe('test server response parameter and body', function () {
 
   // send parameter by post method
   describe('test post method', function () {
+
+    // data
+    var sendObject = {
+      "username": "admin",
+      "token": "1234567890",
+      // simple object
+      "info": {
+        "nickname": "花落莫离",
+        "gender": "M",
+        "age": "28"
+      },
+      // complex objet
+      "order": {
+        "serialNumber": "20160407090102123",
+        "state": "0",
+        "address": {
+          "code": "370203",
+          "name": "山东省青岛市市北区"
+        },
+        "products": [{
+          "id": "1234",
+          "name": "iphone SE",
+          "price": "3456.03",
+          "amount": "1"
+        }, {
+          "id": "2345",
+          "name": "ipad pro",
+          "price": "6666.66",
+          "amount": "2"
+        }]
+      },
+      // simple array
+      "deliverTime": ["1", "2", "3"],
+      // complex array
+      "educations": [{
+        "startTime": "2004",
+        "endTime": "2007",
+        "name": "高中",
+        "degree": "中学"
+      }, {
+        "startTime": "2007",
+        "endTime": "2011",
+        "name": "大学",
+        "degree": "本科"
+      }, {
+        "startTime": "2011",
+        "endTime": "2014",
+        "name": "研究生",
+        "degree": "硕士"
+      }]
+    };
+    // $.param(sendObject);
+    var sendStr = 'username=admin&token=1234567890&info[nickname]=花落莫离&info[gender]=M&info[age]=28&order[serialNumber]=20160407090102123&order[state]=0&order[address][code]=370203&order[address][name]=山东省青岛市市北区&order[products][0][id]=1234&order[products][0][name]=iphone+SE&order[products][0][price]=3456.03&order[products][0][amount]=1&order[products][1][id]=2345&order[products][1][name]=ipad+pro&order[products][1][price]=6666.66&order[products][1][amount]=2&deliverTime[]=1&deliverTime[]=2&deliverTime[]=3&educations[0][startTime]=2004&educations[0][endTime]=2007&educations[0][name]=高中&educations[0][degree]=中学&educations[1][startTime]=2007&educations[1][endTime]=2011&educations[1][name]=大学&educations[1][degree]=本科&educations[2][startTime]=2011&educations[2][endTime]=2014&educations[2][name]=研究生&educations[2][degree]=硕士';
+    var sendEncodedStr = 'username=admin&token=1234567890&info%5Bnickname%5D=%E8%8A%B1%E8%90%BD%E8%8E%AB%E7%A6%BB&info%5Bgender%5D=M&info%5Bage%5D=28&order%5BserialNumber%5D=20160407090102123&order%5Bstate%5D=0&order%5Baddress%5D%5Bcode%5D=370203&order%5Baddress%5D%5Bname%5D=%E5%B1%B1%E4%B8%9C%E7%9C%81%E9%9D%92%E5%B2%9B%E5%B8%82%E5%B8%82%E5%8C%97%E5%8C%BA&order%5Bproducts%5D%5B0%5D%5Bid%5D=1234&order%5Bproducts%5D%5B0%5D%5Bname%5D=iphone+SE&order%5Bproducts%5D%5B0%5D%5Bprice%5D=3456.03&order%5Bproducts%5D%5B0%5D%5Bamount%5D=1&order%5Bproducts%5D%5B1%5D%5Bid%5D=2345&order%5Bproducts%5D%5B1%5D%5Bname%5D=ipad+pro&order%5Bproducts%5D%5B1%5D%5Bprice%5D=6666.66&order%5Bproducts%5D%5B1%5D%5Bamount%5D=2&deliverTime%5B%5D=1&deliverTime%5B%5D=2&deliverTime%5B%5D=3&educations%5B0%5D%5BstartTime%5D=2004&educations%5B0%5D%5BendTime%5D=2007&educations%5B0%5D%5Bname%5D=%E9%AB%98%E4%B8%AD&educations%5B0%5D%5Bdegree%5D=%E4%B8%AD%E5%AD%A6&educations%5B1%5D%5BstartTime%5D=2007&educations%5B1%5D%5BendTime%5D=2011&educations%5B1%5D%5Bname%5D=%E5%A4%A7%E5%AD%A6&educations%5B1%5D%5Bdegree%5D=%E6%9C%AC%E7%A7%91&educations%5B2%5D%5BstartTime%5D=2011&educations%5B2%5D%5BendTime%5D=2014&educations%5B2%5D%5Bname%5D=%E7%A0%94%E7%A9%B6%E7%94%9F&educations%5B2%5D%5Bdegree%5D=%E7%A1%95%E5%A3%AB';
+
 
     it('shold send parameter by json', function (done) {
       request
@@ -170,6 +168,7 @@ describe('test server response parameter and body', function () {
     it('shold send parameter by urlencoded', function (done) {
       request
         .post('/demo/post')
+        .set('content-type', 'application/x-www-form-urlencoded')
         .send(sendStr)
         .expect(200)
         .expect(function (res) {
@@ -181,6 +180,7 @@ describe('test server response parameter and body', function () {
     it('shold send encoded parameter by urlencoded', function (done) {
       request
         .post('/demo/post')
+        .set('content-type', 'application/x-www-form-urlencoded')
         .send(sendEncodedStr)
         .expect(200)
         .expect(function (res) {
