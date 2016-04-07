@@ -1,8 +1,8 @@
-var app = require('../app');
 var assert = require('assert');
 var logger = require('../logger/logger');
 
-var request = require('supertest').agent(app.listen());
+var request = require('supertest').agent(require('../app').listen());
+// var request = require('supertest').agent('http://localhost:3000');
 
 describe('test server response parameter and body', function () {
 
