@@ -1,15 +1,12 @@
 var express = require('express');
 var util = require('util');
 
-// routes
-var demo = require('./demo');
-
 module.exports = function (app) {
 
   setCross(app);
 
-  // user
-  app.use('/demo', demo);
+  // demo
+  app.use('/demo', require('./demo'));
 
 }
 
