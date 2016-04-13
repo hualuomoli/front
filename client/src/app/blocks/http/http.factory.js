@@ -5,83 +5,66 @@
     .factory('http', http);
 
   /* @ngInject */
-  function http($http, logger) {
+  function http($http, path, logger, httpHandler) {
+
+    var baseUlr = httpHandler.config.baseUrl;
+
     return {
       get: get,
       post: post,
-      payload: payload
+      call: call
     }
 
     // http get
-    function get(url, params) {
+    function get(uri, params) {
 
-      // parameter is null
-      if (!params) {
-        return doGet(url);
-      }
-      var realUrl;
-      // object parameter
-      if (typeof params === 'object') {
-        // get queryString
-        var queryString = '';
-        for (var key in params) {
-          queryString += "&" + key + "=" + params[key];
-        }
-        // if there is no parameter in param
-        if (queryString.length === 0) {
-          return doGet(url);
-        }
-        // get real url
+      var url = path.join(baseUrl, uri);
+      var data = parseParams(params);
 
-        if (url.indexOf('?') >= 0) {
-          realUrl = url + queryString;
-        } else {
-          realUrl = url + "?" + queryString.substring(1);
-        }
-        return doGet(realUrl);
-      }
-
-      if (typeof params === 'string') {
-        // if there is no parameter in param
-        if (params.length === 0) {
-          return doGet(url);
-        }
-        // if parameter startsWith '&' remove it
-        if (params.substring(0, 1) === '&') {
-          params = params.substring(1);
-        }
-        // get real url
-        if (url.indexOf('?') >= 0) {
-          realUrl = url + '&' + params;
-        } else {
-          realUrl = url + '?' + params;
-        }
-        return doGet(realUrl);
-      }
-
+      call(url, data, 'get');
 
     }
 
     // http post
-    function post(url, params) {
-      if (!params && typeof params !== 'object') {
-        throw new Error('please check your parameter before invoke.');
-      }
+    function post(uri, params) {
+
+      var url = path.join(baseUrl, uri);
+
+      var data = parseParams(params);
+
+      call(url, data, 'post');
+
+    }
+
+    // call
+    function call(url, data, methodName) {
+      return $http({
+        method: methodName,
+        url: url,
+        data: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });
+    }
+
+    function parseParams(params) {
+      var data;
       if (!params) {
-        return $http.post(url);
+        data = '';
+      } else if (typeof params == 'string') {
+        data = params;
+      } else if (typeof params == 'object') {
+        data = $.param(params);
+      } else if (typeof params == 'array') {
+        data = $.param(params);
+      } else {
+        throw new Error('con\'t parse ' + (typeof params));
       }
-      return $http.post(url, $.param(params));
+      return data;
     }
 
-    // payload
-    function payload() {
-      throw new Error("con't support this method.");
-    }
 
-    // do http get
-    function doGet(realUrl) {
-      return $http.get(realUrl);
-    }
 
   }
 

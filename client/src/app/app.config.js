@@ -5,7 +5,7 @@
     .config(config);
 
   /* @ngInject */
-  function config($locationProvider, $ocLazyLoadProvider, appHandlerProvider) {
+  function config($locationProvider, $ocLazyLoadProvider, httpHandlerProvider) {
 
 
     $locationProvider.hashPrefix('!');
@@ -18,7 +18,7 @@
       events: true
     });
 
-    // appHandlerProvider.config.route.root.templateUrl = 'tpl/app.html';
+    httpHandlerProvider.config.baseUrl = 'http://localhost:3000';
 
   }
 

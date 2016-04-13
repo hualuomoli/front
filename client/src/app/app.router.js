@@ -5,23 +5,21 @@
     .config(config);
 
   /* @ngInject */
-  function config($stateProvider, $urlRouterProvider, appHandlerProvider) {
-
-    var route = appHandlerProvider.config.route;
+  function config($stateProvider, $urlRouterProvider) {
 
     // default
-    $urlRouterProvider.otherwise(route.root.url + route.dashboard.url);
+    $urlRouterProvider.otherwise('/app/dashboard');
 
     // app and dashboard
     $stateProvider
-      .state(route.root.state, {
+      .state('app', {
         abstract: true,
-        url: route.root.url,
-        templateUrl: route.root.templateUrl
+        url: '/app',
+        templateUrl: 'tpl/app.html'
       })
-      .state(route.dashboard.state, {
-        url: route.dashboard.url,
-        templateUrl: route.dashboard.templateUrl
+      .state('app.dashboard', {
+        url: '/dashboard',
+        templateUrl: 'tpl/dashboard/dashboard.html'
       })
   }
 

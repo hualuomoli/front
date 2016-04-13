@@ -5,17 +5,7 @@
 # 规范
 所有代码需要符合angular的[规范](https://github.com/johnpapa/angular-styleguide/blob/vscode/snips/i18n/zh-CN.md)
 
-# 目录结构
-
-> + app.js                  应用主入口
-> + core                    核心模块
-> + blocks                  通用模块
->     * logger                   日志模块
->     * exception                异常处理模块
->     * routehelper              路由辅助模块
-
-
-
-# 如何使用
-全局安装 `npm install -g bower jshint mocha gulp-cli express-generator`<br>
-下载项目，执行`npm install & bower install & gulp`
+# 使用
+确保已安装bower和gulp并更新了npm <br>
+`npm install -g npm bower gulp-cli` <br>
+`npm install & gulp`

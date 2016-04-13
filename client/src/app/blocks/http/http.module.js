@@ -2,7 +2,8 @@
   'use strict';
 
   angular.module('blocks.http', [
-    'blocks.logger'
+    'blocks.logger',
+    'blocks.path'
   ]);
 
 })();
