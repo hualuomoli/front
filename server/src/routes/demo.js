@@ -79,17 +79,17 @@ router.post('/post', function (req, res) {
   }
   // simple array
   logger.debug('post object parameter deliverTime is array ' + util.isArray(req.body.deliverTime));
-  for (var i = 0; i < req.body.deliverTime.length; i++) {
-    logger.debug('post object parameter deliverTime[' + i + '] is ' + JSON.stringify(req.body.deliverTime[i]));
+  for (var j = 0; j < req.body.deliverTime.length; j++) {
+    logger.debug('post object parameter deliverTime[' + j + '] is ' + JSON.stringify(req.body.deliverTime[i]));
   }
   // complex array
   logger.debug('post object parameter educations is array ' + util.isArray(req.body.educations));
-  for (var i = 0; i < req.body.educations.length; i++) {
-    logger.debug('post object parameter educations[' + i + '] is object ' + util.isObject(req.body.educations[i]));
-    logger.debug('post object parameter educations[' + i + '][startTime] is ' + req.body.educations[i].startTime);
-    logger.debug('post object parameter educations[' + i + '][endTime] is ' + req.body.educations[i].endTime);
-    logger.debug('post object parameter educations[' + i + '][name] is ' + req.body.educations[i].name);
-    logger.debug('post object parameter educations[' + i + '][degree] is ' + req.body.educations[i].degree);
+  for (var k = 0; k < req.body.educations.length; k++) {
+    logger.debug('post object parameter educations[' + k + '] is object ' + util.isObject(req.body.educations[i]));
+    logger.debug('post object parameter educations[' + k + '][startTime] is ' + req.body.educations[i].startTime);
+    logger.debug('post object parameter educations[' + k + '][endTime] is ' + req.body.educations[i].endTime);
+    logger.debug('post object parameter educations[' + k + '][name] is ' + req.body.educations[i].name);
+    logger.debug('post object parameter educations[' + k + '][degree] is ' + req.body.educations[i].degree);
   }
 
   res.send(req.body);

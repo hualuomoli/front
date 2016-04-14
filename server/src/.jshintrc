@@ -1,15 +1,11 @@
 {
   "predef": [
+    "__dirname",
+    "process",
+    "console",
     "require",
     "module",
-    "process",
-    "__dirname",
-    "path",
-    "console",
-    "it",
-    "describe",
-    "before",
-    "after"
+    "path"
   ],
   "strict": false,
   "undef": true,

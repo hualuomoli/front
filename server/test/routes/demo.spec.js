@@ -2,9 +2,9 @@ var assert = require('assert');
 var fs = require('fs');
 var path = require('path');
 
-var logger = require('../logger/logger');
+var logger = require('../../src/logger/logger');
 
-var request = require('supertest').agent(require('../app').listen());
+var request = require('supertest').agent(require('../../src/app').listen());
 // var request = require('supertest').agent('http://localhost:3000');
 
 describe('test server response parameter and body', function () {
@@ -315,16 +315,16 @@ describe('test server response parameter and body', function () {
         .field('token', '1234567890')
         .field('address[code]', '370203')
         .field('address[home]', '山东省青岛市市北区')
-        .attach('photo', path.join(__dirname, 'index.js'))
-        .attach('background', path.join(__dirname, 'demo.js'))
+        .attach('photo', path.join(__dirname, '../../../favicon.ico'))
+        .attach('background', path.join(__dirname, './demo.spec.js'))
         .expect(200)
         .expect(function (res) {
           assert.equal(res.body.username, 'admin');
           assert.equal(res.body.token, '1234567890');
           assert.equal(res.body.address.code, '370203');
           assert.equal(res.body.address.home, '山东省青岛市市北区');
-          assert.equal(res.body.photo, 'index.js');
-          assert.equal(res.body.background, 'demo.js');
+          assert.equal(res.body.photo, 'favicon.ico');
+          assert.equal(res.body.background, 'demo.spec.js');
         })
         .end(done);
     });
