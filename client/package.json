@@ -1,0 +1,41 @@
+{
+  "name": "front",
+  "version": "2.0.1",
+  "description": "angular + bootstrap + ui-router",
+  "main": "index.html",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "scripts": {
+    "start": "npm install & bower install & gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hualuomoli/front.git"
+  },
+  "keywords": [
+    "angular",
+    "bootstrap",
+    "ui-router"
+  ],
+  "author": "hualuomoli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hualuomoli/front/issues"
+  },
+  "homepage": "https://github.com/hualuomoli/front#readme",
+  "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.0.4",
+    "gulp-concat": "^2.6.0",
+    "gulp-html-replace": "^1.5.5",
+    "gulp-jshint": "^2.0.0",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev": "^7.0.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3"
+  }
+}

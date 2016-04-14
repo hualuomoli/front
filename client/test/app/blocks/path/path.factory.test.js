@@ -26,6 +26,8 @@
       expect(_path.join('http://localhost/', 'api/user')).toBe('http://localhost/api/user');
       expect(_path.join('http://localhost/', '/api/user')).toBe('http://localhost/api/user');
 
+      console.log(typeof ['1', '2']);
+
 
     });
 

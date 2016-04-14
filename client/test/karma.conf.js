@@ -5,7 +5,7 @@ module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: './client/src',
+    basePath: './',
 
 
     // frameworks to use
@@ -15,6 +15,7 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
+      // assets
       '../bower_components/jquery/dist/jquery.js',
       '../bower_components/bootstrap/dist/js/bootstrap.js',
       '../bower_components/angular/angular.js',
@@ -29,30 +30,32 @@ module.exports = function (config) {
       '../bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
 
 
-      './js/app.js',
-      './app/blocks/path/path.module.js',
-      './app/blocks/path/path.factory.js',
-      './app/blocks/logger/logger.module.js',
-      './app/blocks/logger/logger.factory.js',
-      './app/blocks/exception/exception.module.js',
-      './app/blocks/exception/exception.provider.js',
-      './app/blocks/exception/exception.config.js',
-      './app/blocks/routehelper/routehelper.module.js',
-      './app/blocks/routehelper/routehelper.factory.js',
-      './app/blocks/http/http.module.js',
-      './app/blocks/http/http.factory.js',
-      './app/blocks/http/http.provider.js',
-      './app/blocks/blocks.module.js',
-      './app/app.module.js',
-      './app/app.config.js',
-      './app/app.controller.js',
-      './app/app.router.js',
-
-
-      // test
-      '../../node_modules/angular-mocks/angular-mocks.js',
       // app
-      '../test/**/*.test.js'
+      '../src/js/app.js',
+      '../src/app/blocks/path/path.module.js',
+      '../src/app/blocks/path/path.factory.js',
+      '../src/app/blocks/logger/logger.module.js',
+      '../src/app/blocks/logger/logger.factory.js',
+      '../src/app/blocks/exception/exception.module.js',
+      '../src/app/blocks/exception/exception.provider.js',
+      '../src/app/blocks/exception/exception.config.js',
+      '../src/app/blocks/routehelper/routehelper.module.js',
+      '../src/app/blocks/routehelper/routehelper.factory.js',
+      '../src/app/blocks/http/http.module.js',
+      '../src/app/blocks/http/http.factory.js',
+      '../src/app/blocks/http/http.provider.js',
+      '../src/app/blocks/blocks.module.js',
+      '../src/app/app.module.js',
+      '../src/app/app.config.js',
+      '../src/app/app.controller.js',
+      '../src/app/app.router.js',
+
+
+      // test assets
+      '../bower_components/angular-mocks/angular-mocks.js',
+      // test 
+      './app/**/*.test.js'
+
 
     ],
 

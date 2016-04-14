@@ -7,7 +7,7 @@
   /* @ngInject */
   function http($http, path, logger, httpHandler) {
 
-    var baseUlr = httpHandler.config.baseUrl;
+    var baseUrl = httpHandler.config.baseUrl;
 
     return {
       get: get,
@@ -55,8 +55,6 @@
       } else if (typeof params == 'string') {
         data = params;
       } else if (typeof params == 'object') {
-        data = $.param(params);
-      } else if (typeof params == 'array') {
         data = $.param(params);
       } else {
         throw new Error('con\'t parse ' + (typeof params));
