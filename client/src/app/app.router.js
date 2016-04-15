@@ -15,7 +15,7 @@
       .state('app', {
         abstract: true,
         url: '/app',
-        templateUrl: 'tpl/app.html'
+        templateUrl: 'tpl/app.html',
       })
       .state('app.dashboard', {
         url: '/dashboard',

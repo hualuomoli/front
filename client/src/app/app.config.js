@@ -5,7 +5,7 @@
     .config(config);
 
   /* @ngInject */
-  function config($locationProvider, $ocLazyLoadProvider, httpHandlerProvider) {
+  function config($locationProvider, $ocLazyLoadProvider, $httpProvider, httpHandlerProvider) {
 
 
     $locationProvider.hashPrefix('!');
@@ -18,8 +18,11 @@
       events: true
     });
 
-    httpHandlerProvider.config.baseUrl = 'http://localhost:3000';
+    $httpProvider.defaults.withCredentials = true;
+
+    httpHandlerProvider.config.baseUrl = '';
 
   }
+
 
 })();

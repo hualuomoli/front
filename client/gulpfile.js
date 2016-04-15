@@ -74,6 +74,7 @@ gulp.task('js:assets', function () {
 // js - app
 gulp.task('js:app', function () {
   return gulp.src([
+      '!./src/app/test/**/*', // can not concat test js
       './bower_components/front-angular-blocks/dist/blocks.js',
 
       './src/app/**/*.module.js', // module
@@ -187,7 +188,7 @@ gulp.task('html:index', ['css'], function () {
       'css-app': './css/' + tmp['css-app'] + '.css',
       // js
       'js-assets': './js/' + tmp['js-assets'] + '.js',
-      'js-app': './js/' + tmp['js-app'] + '.js',
+      'js-app': './js/' + tmp['js-app'] + '.js'
     }))
     .pipe(gulp.dest('./dist'));
 });
