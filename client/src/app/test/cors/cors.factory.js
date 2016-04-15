@@ -118,7 +118,9 @@
         });
     }
 
-    function wrap(url) {
+    function wrap() {
+      var url = '/login/check'; // use config baseUrl
+
       http.call('GET', url, params)
         .success(function (data, status) {
           logger.debug('GET wrap http url ', url);

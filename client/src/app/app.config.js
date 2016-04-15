@@ -20,7 +20,7 @@
 
     $httpProvider.defaults.withCredentials = true;
 
-    httpHandlerProvider.config.baseUrl = '';
+    httpHandlerProvider.config.baseUrl = 'http://localhost:3000';
 
   }
 

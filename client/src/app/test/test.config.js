@@ -6,8 +6,9 @@
     .run(run);
 
   /* @ngInject */
-  function config(testHandlerProvider) {
+  function config(testHandlerProvider, httpHandlerProvider) {
     testHandlerProvider.config.enable = true;
+    httpHandlerProvider.config.baseUrl = 'http://localhost:80/web';
   }
 
 
