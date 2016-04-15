@@ -32,7 +32,7 @@ var tmp = {
 
 // clean
 gulp.task('clean', function () {
-  return gulp.src('./client/dist', {
+  return gulp.src('./dist', {
       read: false
     })
     .pipe(clean());
@@ -74,6 +74,8 @@ gulp.task('js:assets', function () {
 // js - app
 gulp.task('js:app', function () {
   return gulp.src([
+      './bower_components/front-angular-blocks/dist/blocks.js',
+
       './src/app/**/*.module.js', // module
       './src/app/**/*.provider.js', // provider
       './src/app/**/*.factory.js', // factory

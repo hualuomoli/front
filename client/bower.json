@@ -1,5 +1,5 @@
 {
-  "name": "ng-bs3-mstp",
+  "name": "front",
   "homepage": "https://github.com/hualuomoli/front",
   "authors": [
     "hualuomoli <liubaoquan0831@163.com>"
@@ -29,7 +29,8 @@
     "angular-resource": "^1.5.3",
     "angular-sanitize": "^1.5.3",
     "angular-touch": "^1.5.3",
-    "angular-bootstrap": "^1.2.5"
+    "angular-bootstrap": "^1.2.5",
+    "front-angular-blocks": "https://github.com/hualuomoli/front-angular-blocks.git#^1.0.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.3"
