@@ -8,4 +8,8 @@
 # 使用
 确保已安装bower和gulp并更新了npm <br>
 `npm install -g npm bower gulp-cli` <br>
-`npm install & gulp`
+`npm install & bower install & gulp`
+
+# 测试
+`npm install -g bower karma-cli` <br>
+`npm install & bower install & karma start`

@@ -75,7 +75,7 @@ gulp.task('js:assets', function () {
 gulp.task('js:app', function () {
   return gulp.src([
       '!./src/app/test/**/*', // can not concat test js
-      './bower_components/front-angular-blocks/dist/blocks.js',
+      './bower_components/front-angular-blocks/dist/front-angular-blocks.js',
 
       './src/app/**/*.module.js', // module
       './src/app/**/*.provider.js', // provider

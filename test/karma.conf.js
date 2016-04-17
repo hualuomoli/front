@@ -29,6 +29,7 @@ module.exports = function (config) {
       '../bower_components/angular-touch/angular-touch.js',
       '../bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
 
+      '../bower_components/front-angular-blocks/dist/front-angular-blocks.js',
 
       // app
       '../src/js/app.js',
@@ -52,9 +53,9 @@ module.exports = function (config) {
 
 
       // test assets
-      '../bower_components/angular-mocks/angular-mocks.js',
+      '../node_modules/angular-mocks/angular-mocks.js',
       // test 
-      './app/**/*.test.js'
+      './**/*.test.js'
 
 
     ],
