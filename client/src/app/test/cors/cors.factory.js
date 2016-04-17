@@ -1,10 +1,10 @@
 (function () {
   'use strict';
 
-  var urls = ['http://localhost:80/web/login/check', 'http://127.0.0.1:80/web/login/check', 'http://192.168.1.136:80/web/login/check'];
+  var urls = ['http://localhost:80/web/login', 'http://127.0.0.1:80/web/login', 'http://192.168.10.212:80/web/login'];
 
   var params = {
-    userName: 'admin',
+    username: 'admin',
     password: 'admin'
   };
 
@@ -16,25 +16,68 @@
 
     return {
       // cross domain
-      call: function () {
-        for (var i = 0; i < urls.length; i++) {
+      callJquery:function(){
+      for (var i = 0; i < urls.length; i++) {
           var url = urls[i];
 
           // ajax
           ajaxGet(url);
           ajaxPost(url);
 
+        }
+      },
+      callAngular:function(){
+      for (var i = 0; i < urls.length; i++) {
+          var url = urls[i];
+
           // http
           httpGet(url);
           httpPost(url);
+
+        }
+      },
+      callWrap:function(){
+        for (var i = 0; i < urls.length; i++) {
+          var url = urls[i];
 
           // wrap
           wrapGet(url);
           wrapPost(url);
 
+        }
+      },
+      call: function () {
+        for (var i = 0; i < urls.length; i++) {
+          var url = urls[i];
+
           // wrap methodName
           wrap(url);
         }
+      },
+      login:function(){
+        return http.post('http://127.0.0.1:80/web/login',params)
+        .success(function(data){
+          if(data.success){
+            console.log('login success.')
+          }else{
+            console.log('login error');
+            console.log(data);
+          }
+        });
+      },
+      logout:function(){
+       return  http.post('http://127.0.0.1:80/web/logout',params)
+        .success(function(data){
+          if(data.success){
+            console.log('logout success.')
+          }
+        });
+      },
+      getUser:function(){
+       return  http.get('http://127.0.0.1:80/web/a/user/' + params.username)
+        .success(function(data){
+          console.log(data);
+        });
       }
     }
 
@@ -119,7 +162,7 @@
     }
 
     function wrap() {
-      var url = '/login/check'; // use config baseUrl
+      var url = '/login'; // use config baseUrl
 
       http.call('GET', url, params)
         .success(function (data, status) {
@@ -145,18 +188,7 @@
           logger.debug('post wrap http status ', status);
           logger.debug('post wrap http data ', data);
         });
-      http.call('PUT', url, params)
-        .success(function (data, status) {
-          logger.debug('PUT wrap http url ', url);
-          logger.debug('PUT wrap http status ', status);
-          logger.debug('PUT wrap http data ', data);
-        });
-      http.call('put', url, params)
-        .success(function (data, status) {
-          logger.debug('put wrap http url ', url);
-          logger.debug('put wrap http status ', status);
-          logger.debug('put wrap http data ', data);
-        });
+    
     }
 
   }
