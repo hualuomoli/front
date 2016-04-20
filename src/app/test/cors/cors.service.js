@@ -5,7 +5,7 @@
     .service('testCorsService', testCorsService);
 
   /** @ngInject */
-  function testCorsService(testCors, http) {
+  function testCorsService($timeout, testCors, http) {
     var service = {};
     var postUrls = [
       'http://localhost:80/web/login',
@@ -63,7 +63,46 @@
     }
 
     function security() {
+      var url = 'http://localhost:80/web/auth/user/admin';
+      var token;
+      // login user invalide
+      http.post(postUrls[0], {})
+        .success(function (data, status, config, headers) {
+          console.log(data);
+        })
+        .error(function (data) {
+          console.log(data);
+        });
+
       // login
+      $timeout(function () {
+        http.post(postUrls[0], params)
+          .success(function (data, status, config, headers) {
+            console.log(data);
+          });
+      }, 100);
+      // get data
+      $timeout(function () {
+        http.get(url)
+          .success(function (data) {
+            console.log(data);
+          });
+      }, 300);
+      // logout
+      $timeout(function () {
+        http.post(getUrls[0], params)
+          .success(function (data) {});
+      }, 300);
+
+      // logout
+      $timeout(function () {
+        http.get(url)
+          .success(function (data) {})
+          .error(function (data) {
+            console.log(data);
+          });
+      }, 300);
+
       // get security data
       // logout
       // get securiy data(error)

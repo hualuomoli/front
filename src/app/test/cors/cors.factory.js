@@ -46,7 +46,7 @@
     }
 
     function ngGet(url, params) {
-      $http({
+      return $http({
           method: 'GET',
           url: url,
           params: params
@@ -57,7 +57,7 @@
     }
 
     function ngPost(url, params) {
-      $http({
+      return $http({
           method: 'POST',
           url: url,
           data: $.param(params),
@@ -71,14 +71,14 @@
     }
 
     function httpGet(url, params) {
-      http.get(url, params)
+      return http.get(url, params)
         .success(function (data, status) {
           logger.debug('http get url ', url + ' status ' + status + ' data ' + JSON.stringify(data));
         });
     }
 
     function httpPost(url, params) {
-      http.post(url, params)
+      return http.post(url, params)
         .success(function (data, status) {
           logger.debug('http post url ', url + ' status ' + status + ' data ' + JSON.stringify(data));
         });
