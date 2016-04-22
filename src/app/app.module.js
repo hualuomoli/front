@@ -6,6 +6,7 @@
     'blocks.exception',
     'blocks.routehelper',
     'blocks.http',
+    'blocks.user',
 
     'ui.bootstrap',
     'oc.lazyLoad'

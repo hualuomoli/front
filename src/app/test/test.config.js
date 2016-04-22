@@ -13,17 +13,21 @@
 
 
   /* @ngInject */
-  function run(testHandler, testCorsService, http) {
+  function run(testHandler, testCorsService, http, $rootScope) {
+
     if (!testHandler.config.enable) {
       return;
     }
-
     // testCorsService.ajaxCross();
     // testCorsService.ngCross();
     // testCorsService.httpCross();
 
     testCorsService.security();
 
+    // 没有权限
+    $rootScope.$on('userUnauthorizedIntercepted', function (event, errorType, data, res) {
+      console.log(errorType + " - " + JSON.stringify(data));
+    });
   }
 
 })();

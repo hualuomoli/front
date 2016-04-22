@@ -67,45 +67,32 @@
       var token;
       // login user invalide
       http.post(postUrls[0], {})
-        .success(function (data, status, config, headers) {
-          console.log(data);
-        })
-        .error(function (data) {
-          console.log(data);
+        .success(function (data) {
+          console.log('login with invalide security ' + JSON.stringify(data));
+          // login
+          http.post(postUrls[0], params)
+            .success(function (data, status, config, headers) {
+              console.log('login success whth valid security ');
+              // get data when login success
+              http.get(url)
+                .success(function (data) {
+                  console.log("get data use cookie " + JSON.stringify(data));
+                  // logout
+                  http.get(getUrls[0])
+                    .success(function (data) {
+                      console.log('logout success')
+                        // get data when logout success
+                      http.get(url)
+                        .success(function (data) {
+                          console.log("get data when logout " + JSON.stringify(data));
+                        })
+                        .error(function (data) {
+                          console.log("not get data when logout " + JSON.stringify(data));
+                        });
+                    });
+                });
+            });
         });
-
-      // login
-      $timeout(function () {
-        http.post(postUrls[0], params)
-          .success(function (data, status, config, headers) {
-            console.log(data);
-          });
-      }, 100);
-      // get data
-      $timeout(function () {
-        http.get(url)
-          .success(function (data) {
-            console.log(data);
-          });
-      }, 300);
-      // logout
-      $timeout(function () {
-        http.post(getUrls[0], params)
-          .success(function (data) {});
-      }, 300);
-
-      // logout
-      $timeout(function () {
-        http.get(url)
-          .success(function (data) {})
-          .error(function (data) {
-            console.log(data);
-          });
-      }, 300);
-
-      // get security data
-      // logout
-      // get securiy data(error)
 
     }
 

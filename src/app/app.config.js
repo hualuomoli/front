@@ -19,8 +19,11 @@
     });
 
     $httpProvider.defaults.withCredentials = true;
+    $httpProvider.interceptors.push('userInterceptor');
 
     httpHandlerProvider.config.baseUrl = 'http://localhost:3000';
+
+
 
   }
 
